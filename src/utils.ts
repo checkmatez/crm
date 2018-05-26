@@ -1,16 +1,19 @@
 import * as jwt from 'jsonwebtoken'
+
 import { Prisma } from './generated/prisma'
 
-export interface Context {
+export interface IContext {
   db: Prisma
   request: any
 }
 
-export function getUserId(ctx: Context) {
-  const Authorization = ctx.request.get('Authorization')
-  if (Authorization) {
-    const token = Authorization.replace('Bearer ', '')
-    const { userId } = jwt.verify(token, process.env.APP_SECRET) as { userId: string }
+export function getUserId(ctx: IContext) {
+  const authorization = ctx.request.get('Authorization')
+  if (authorization) {
+    const token = authorization.replace('Bearer ', '')
+    const { userId } = jwt.verify(token, process.env.APP_SECRET) as {
+      userId: string
+    }
     return userId
   }
 
