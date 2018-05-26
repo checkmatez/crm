@@ -15,7 +15,7 @@ datamodel: datamodel.graphql
 # with `graphql codegen` .
 hooks:
   post-deploy:
-    - graphql get-schema --project database
+    - graphql get-schema
     - graphql codegen
 
 # If specified, the `secret` must be used to generate a JWT which is attached

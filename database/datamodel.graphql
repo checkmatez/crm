@@ -1,17 +1,110 @@
-type Post {
+type User {
   id: ID! @unique
   createdAt: DateTime!
   updatedAt: DateTime!
-  isPublished: Boolean! @default(value: "false")
-  title: String!
-  text: String!
-  author: User!
-}
-
-type User {
-  id: ID! @unique
+  # --------------------
   email: String! @unique
   password: String!
   name: String!
-  posts: [Post!]!
+}
+
+type Lead {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  # --------------------
+  description: String!
+  state: LeadState!
+  note: String! @default(value: "")
+  manager: User!
+  contactDetails: [ContactDetail!]!
+    @relation(name: "LeadContactDetails", onDelete: CASCADE)
+}
+
+type LeadState {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  # --------------------
+  name: String!
+  color: Color!
+}
+
+type ContactDetail {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  # --------------------
+  kind: ContactDetailsKind!
+  value: String!
+  rawValue: String!
+  owner: Lead! @relation(name: "LeadContactDetails")
+}
+
+type Color {
+  id: ID! @unique
+  # --------------------
+  name: String! @default(value: "")
+  hexValue: String!
+}
+
+type Client {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  # --------------------
+  name: String!
+  manager: User
+}
+
+type Order {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  # --------------------
+  client: Client!
+  manager: User
+  positions: [OrderPositions!]!
+}
+
+type OrderPositions {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  # --------------------
+  nomenclature: Nomenclature!
+  quantity: Float!
+  price: Float!
+  amount: Float!
+  currency: Currency!
+}
+
+type Currency {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  # --------------------
+  code: String!
+  name: String!
+}
+
+type Nomenclature {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  # --------------------
+  type: NomenclatureType! @default(value: "GOODS")
+  name: String!
+  description: String!
+}
+
+enum ContactDetailsKind {
+  EMAIL
+  PHONE
+  ADDRESS
+}
+
+enum NomenclatureType {
+  GOODS
+  SERVICE
 }
