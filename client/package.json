@@ -1,0 +1,55 @@
+{
+  "name": "crm-client",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "precommit": "lint-staged",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "lint": "eslint src"
+  },
+  "dependencies": {
+    "@material-ui/core": "^1.1.0",
+    "apollo-cache-inmemory": "^1.2.1",
+    "apollo-cache-persist": "^0.1.1",
+    "apollo-client": "^2.3.1",
+    "apollo-link": "^1.2.2",
+    "apollo-link-context": "^1.0.8",
+    "apollo-link-error": "^1.0.9",
+    "apollo-link-http": "^1.5.4",
+    "apollo-link-state": "^0.4.1",
+    "apollo-link-ws": "^1.0.8",
+    "apollo-upload-client": "^8.0.0",
+    "apollo-utilities": "^1.0.12",
+    "formik": "^0.11.11",
+    "graphql": "^0.13.2",
+    "graphql-tag": "^2.9.2",
+    "react": "^16.4.0",
+    "react-apollo": "^2.1.4",
+    "react-dom": "^16.4.0",
+    "react-scripts": "1.1.4",
+    "styled-components": "^3.3.0",
+    "subscriptions-transport-ws": "^0.9.9"
+  },
+  "devDependencies": {
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-react-app": "^2.1.0",
+    "eslint-plugin-flowtype": "^2.47.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jest": "^21.15.3",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.1.2"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --config ./.prettierrc --write",
+      "git add"
+    ]
+  }
+}

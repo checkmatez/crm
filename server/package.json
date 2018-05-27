@@ -1,10 +1,11 @@
 {
   "name": "crm",
+  "private": true,
   "scripts": {
     "start": "dotenv -- nodemon -e ts,graphql -x ts-node src/index.ts",
     "dev": "npm-run-all --parallel start playground",
     "debug": "dotenv -- nodemon -e ts,graphql -x ts-node --inspect src/index.ts",
-    "playground": "graphql playground",
+    "playground": "graphql playground --port 4001",
     "build": "rimraf dist && tsc",
     "lint": "tslint -p tsconfig.json",
     "format": "prettier src/**/*.{js,ts,json,css} --config ./.prettierrc --write"
