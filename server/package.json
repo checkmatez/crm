@@ -14,11 +14,13 @@
     "bcryptjs": "2.4.3",
     "graphql-yoga": "1.14.5",
     "jsonwebtoken": "8.2.1",
-    "prisma-binding": "2.0.2"
+    "prisma-binding": "2.0.2",
+    "validator": "^10.2.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "2.4.1",
     "@types/debug": "^0.0.30",
+    "@types/validator": "^9.4.1",
     "dotenv-cli": "1.4.0",
     "graphql-cli": "2.16.0",
     "nodemon": "1.17.5",

@@ -25,3 +25,16 @@ export class AuthError extends Error {
     super('Not authorized')
   }
 }
+
+export type Errors = {
+  [key: string]: string
+  _error?: string
+}
+
+export class ValidationError extends Error {
+  errors: Errors
+  constructor(errors: Errors, message = 'The request is invalid.') {
+    super(message)
+    this.errors = errors
+  }
+}

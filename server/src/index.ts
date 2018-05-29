@@ -30,6 +30,12 @@ server.start(
     uploads: {
       maxFileSize: 10 * 1024 * 1024,
     },
+    formatError: error => ({
+      message: error.message,
+      errors: error.originalError && error.originalError.errors,
+      locations: error.locations,
+      path: error.path,
+    }),
   },
   ({ port }) => debugApi(`Server is running on http://localhost:${port}`)
 )
