@@ -21,6 +21,6 @@ export const login = async (
 
   return {
     user,
-    token: jwt.sign({ userId: user.id }, process.env.APP_SECRET),
+    accessToken: jwt.sign({ userId: user.id }, process.env.APP_SECRET),
   }
 }

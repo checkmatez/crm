@@ -1,135 +1,147 @@
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
+import { Link } from 'react-router-dom'
+import { FORM_ERROR } from 'final-form'
+import { Form as FinalForm, Field } from 'react-final-form'
 import Paper from '@material-ui/core/Paper'
-import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-import { Formik, Field } from 'formik'
+import Tooltip from '@material-ui/core/Tooltip'
+import InfoIcon from '@material-ui/icons/InfoOutline'
 import styled from 'styled-components'
 
 import { SIGNUP_MUTATION } from '../../mutations/signup'
 import { ACCESS_TOKEN_KEY } from '../../config/constants'
+import FormTextField from '../FormTextField'
 
-const Form = styled.form`
+const PaperStyled = styled(Paper)`
+  width: 300px;
+  padding: 20px;
+`
+
+const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
 `
 
-const CustomField = ({
-  field, // { name, value, onChange, onBlur }
-  form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
-  ...props
-}) => (
-  <TextField
-    {...field}
-    {...props}
-    error={touched[field.name] && errors[field.name]}
-    helperText={errors[field.name]}
-  />
-)
-
-const StyledCustomField = styled(CustomField)`
-  width: 200px;
+const FieldContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `
 
-const Root = styled(Paper)`
-  padding: 20px;
+const TooltipContainer = styled.div`
+  align-self: flex-end;
+  margin-bottom: 8px;
+  padding: 8px;
 `
+
+const validate = values => {
+  const errors = {}
+  if (!values.email) {
+    errors.email = 'Обязательное поле'
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Некорректный email'
+  }
+  if (!values.password) {
+    errors.password = 'Обязательное поле'
+  } else if (values.password.length < 6) {
+    errors.password = 'Пароль должен содержать минимум 6 символов'
+  }
+  return errors
+}
+
+const makeFormSubmitHandler = mutation => async values => {
+  try {
+    await mutation({ variables: values })
+  } catch (error) {
+    if (error.graphQLErrors.length && error.graphQLErrors[0].errors) {
+      return error.graphQLErrors[0].errors
+    }
+    if (error.message) {
+      return { [FORM_ERROR]: error.message }
+    }
+  }
+  return undefined
+}
 
 class SignupForm extends Component {
-  state = {
-    email: '',
-    password: '',
-  }
+  static propTypes = {}
 
-  handleChange = inputName => event =>
-    this.setState({ [inputName]: event.target.value })
+  static defaultProps = {}
 
   handleSignupCompleted = ({ signup: { accessToken, user } }) => {
     localStorage.setItem(ACCESS_TOKEN_KEY, accessToken)
-    console.log('yahoo')
-    // this.props.navigation.navigate('RegistrationChat')
+    this.props.history.push('/login')
   }
 
-  validateForm = values => {
-    const errors = {}
-    if (!values.email) {
-      errors.email = 'Required'
-    } else if (
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-    ) {
-      errors.email = 'Invalid email address'
-    }
-    return errors
-  }
-
-  renderForm = ({ handleSubmit, loading, error }) => (
-    <Root>
-      <Form onSubmit={handleSubmit}>
+  renderForm = ({ handleSubmit, submitting, pristine, error }) => (
+    <PaperStyled>
+      <StyledForm onSubmit={handleSubmit} noValidate autoComplete="off">
         <Typography variant="headline" gutterBottom>
           Регистрация
         </Typography>
-        <Field
-          name="email"
-          component={StyledCustomField}
-          label="email"
-          type="email"
-          margin="normal"
-        />
-        <Field
-          name="password"
-          component={StyledCustomField}
-          label="Пароль"
-          margin="normal"
-        />
-        <Button variant="raised" color="primary" type="submit">
+        <FieldContainer>
+          <Field
+            name="email"
+            type="email"
+            label="Email"
+            placeholder="abc@ya.ru"
+            margin="normal"
+            fullWidth
+            component={FormTextField}
+          />
+          <TooltipContainer>
+            <Tooltip id="tooltip-email" title="Адрес электронной почты">
+              <InfoIcon />
+            </Tooltip>
+          </TooltipContainer>
+        </FieldContainer>
+        <FieldContainer>
+          <Field
+            name="password"
+            type="password"
+            label="Пароль"
+            placeholder="123"
+            autoComplete="new-password"
+            margin="normal"
+            fullWidth
+            component={FormTextField}
+          />
+          <TooltipContainer>
+            <Tooltip id="tooltip-email" title="Минимум 6 символов">
+              <InfoIcon />
+            </Tooltip>
+          </TooltipContainer>
+        </FieldContainer>
+        <Typography variant="headline" gutterBottom>
+          {error}
+        </Typography>
+        <Button
+          variant="raised"
+          color="primary"
+          type="submit"
+          disabled={submitting || pristine}
+        >
           Зарегистрироваться
         </Button>
-      </Form>
-    </Root>
+        <Button component={Link} to="/login" size="small" disableRipple>
+          Уже есть аккаунт? Войти
+        </Button>
+      </StyledForm>
+    </PaperStyled>
   )
 
-  // renderForm = (signup, { data, loading, error }) => (
-  //   <Root>
-  //     <Form
-  //       noValidate
-  //       autoComplete="off"
-  //       onSubmit={e => {
-  //         e.preventDefault()
-  //         signup({
-  //           variables: {
-  //             email: this.state.email,
-  //             password: this.state.password,
-  //             name: '',
-  //           },
-  //         })
-  //       }}
-  //     >
-  //       <Typography variant="headline" gutterBottom>
-  //         Регистрация
-  //       </Typography>
-  //       <Field
-  //         id="email"
-  //         label="email"
-  //         value={this.state.email}
-  //         onChange={this.handleChange('email')}
-  //         error={!!error}
-  //         helperText={error && error.message}
-  //         margin="normal"
-  //       />
-  //       <Field
-  //         id="password"
-  //         label="Пароль"
-  //         value={this.state.password}
-  //         onChange={this.handleChange('password')}
-  //         margin="normal"
-  //       />
-  //       <Button variant="raised" color="primary" type="submit">
-  //         Зарегистрироваться
-  //       </Button>
-  //     </Form>
-  //   </Root>
-  // )
+  renderFinalForm = signup => (
+    <FinalForm
+      onSubmit={makeFormSubmitHandler(signup)}
+      initialValues={{ email: '', password: '' }}
+      validate={validate}
+    >
+      {this.renderForm}
+    </FinalForm>
+  )
 
   render() {
     return (
@@ -137,28 +149,7 @@ class SignupForm extends Component {
         mutation={SIGNUP_MUTATION}
         onCompleted={this.handleSignupCompleted}
       >
-        {(signup, { data, loading, error }) => {
-          console.log('error', error)
-          console.log('error JSON', JSON.stringify(error, null, 2))
-          return (
-            <Formik
-              initialValues={{ email: '', password: '' }}
-              validate={this.validateForm}
-              onSubmit={variables =>
-                signup({
-                  variables: {
-                    ...variables,
-                    name: '',
-                  },
-                })
-              }
-            >
-              {({ handleSubmit }) =>
-                this.renderForm({ handleSubmit, loading, error })
-              }
-            </Formik>
-          )
-        }}
+        {this.renderFinalForm}
       </Mutation>
     )
   }

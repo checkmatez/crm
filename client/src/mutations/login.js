@@ -2,9 +2,9 @@ import gql from 'graphql-tag'
 
 import { userInfoFragment } from '../fragments/userInfo'
 
-export const SIGNUP_MUTATION = gql`
-  mutation signup($email: String!, $password: String!) {
-    signup(email: $email, password: $password, name: "") {
+export const LOGIN_MUTATION = gql`
+  mutation login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
       accessToken
       user {
         ...UserInfo
