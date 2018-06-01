@@ -9,10 +9,17 @@ import Button from '@material-ui/core/Button'
 import Tooltip from '@material-ui/core/Tooltip'
 import InfoIcon from '@material-ui/icons/InfoOutline'
 import styled from 'styled-components'
+import posed from 'react-pose'
 
 import { SIGNUP_MUTATION } from '../../mutations/signup'
 import { ACCESS_TOKEN_KEY } from '../../config/constants'
 import FormTextField from '../FormTextField'
+
+const animationConfig = {
+  visible: { opacity: 1, x: '0%' },
+  hidden: { opacity: 0, x: '-100%' },
+}
+const PosedWrapper = posed.div(animationConfig)
 
 const PaperStyled = styled(Paper)`
   width: 300px;
@@ -77,60 +84,62 @@ class SignupForm extends Component {
   }
 
   renderForm = ({ handleSubmit, submitting, pristine, error }) => (
-    <PaperStyled>
-      <StyledForm onSubmit={handleSubmit} noValidate autoComplete="off">
-        <Typography variant="headline" gutterBottom>
-          Регистрация
-        </Typography>
-        <FieldContainer>
-          <Field
-            name="email"
-            type="email"
-            label="Email"
-            placeholder="abc@ya.ru"
-            margin="normal"
-            fullWidth
-            component={FormTextField}
-          />
-          <TooltipContainer>
-            <Tooltip id="tooltip-email" title="Адрес электронной почты">
-              <InfoIcon />
-            </Tooltip>
-          </TooltipContainer>
-        </FieldContainer>
-        <FieldContainer>
-          <Field
-            name="password"
-            type="password"
-            label="Пароль"
-            placeholder="123"
-            autoComplete="new-password"
-            margin="normal"
-            fullWidth
-            component={FormTextField}
-          />
-          <TooltipContainer>
-            <Tooltip id="tooltip-email" title="Минимум 6 символов">
-              <InfoIcon />
-            </Tooltip>
-          </TooltipContainer>
-        </FieldContainer>
-        <Typography variant="headline" gutterBottom>
-          {error}
-        </Typography>
-        <Button
-          variant="raised"
-          color="primary"
-          type="submit"
-          disabled={submitting || pristine}
-        >
-          Зарегистрироваться
-        </Button>
-        <Button component={Link} to="/login" size="small" disableRipple>
-          Уже есть аккаунт? Войти
-        </Button>
-      </StyledForm>
-    </PaperStyled>
+    <PosedWrapper pose={this.props.match ? 'visible' : 'hidden'}>
+      <PaperStyled>
+        <StyledForm onSubmit={handleSubmit} noValidate autoComplete="off">
+          <Typography variant="headline" gutterBottom>
+            Регистрация
+          </Typography>
+          <FieldContainer>
+            <Field
+              name="email"
+              type="email"
+              label="Email"
+              placeholder="abc@ya.ru"
+              margin="normal"
+              fullWidth
+              component={FormTextField}
+            />
+            <TooltipContainer>
+              <Tooltip id="tooltip-email" title="Адрес электронной почты">
+                <InfoIcon />
+              </Tooltip>
+            </TooltipContainer>
+          </FieldContainer>
+          <FieldContainer>
+            <Field
+              name="password"
+              type="password"
+              label="Пароль"
+              placeholder="123"
+              autoComplete="new-password"
+              margin="normal"
+              fullWidth
+              component={FormTextField}
+            />
+            <TooltipContainer>
+              <Tooltip id="tooltip-email" title="Минимум 6 символов">
+                <InfoIcon />
+              </Tooltip>
+            </TooltipContainer>
+          </FieldContainer>
+          <Typography variant="headline" gutterBottom>
+            {error}
+          </Typography>
+          <Button
+            variant="raised"
+            color="primary"
+            type="submit"
+            disabled={submitting || pristine}
+          >
+            Зарегистрироваться
+          </Button>
+          <Button component={Link} to="/login" size="small" disableRipple>
+            Уже есть аккаунт? Войти
+          </Button>
+        </StyledForm>
+      </PaperStyled>
+    </PosedWrapper>
   )
 
   renderFinalForm = signup => (

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { ApolloProvider } from 'react-apollo'
-import { BrowserRouter, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import styled from 'styled-components'
@@ -10,6 +11,12 @@ import { ACCESS_TOKEN_KEY } from '../../config/constants'
 import SignupForm from '../SignupForm'
 import LoginForm from '../LoginForm'
 import Dashboard from '../Dashboard'
+
+// https://github.com/ReactTraining/react-router/issues/5866
+Route.propTypes = {
+  ...Route.propTypes,
+  path: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+}
 
 const Center = styled.div`
   display: flex;
@@ -22,13 +29,11 @@ const Center = styled.div`
 class App extends Component {
   state = {
     apolloClient: null,
-    hasToken: false,
   }
 
   async componentDidMount() {
     const { client } = await configureApollo()
-    const token = localStorage.getItem(ACCESS_TOKEN_KEY)
-    this.setState({ apolloClient: client, hasToken: !!token })
+    this.setState({ apolloClient: client })
   }
 
   render() {
@@ -40,18 +45,34 @@ class App extends Component {
         <BrowserRouter>
           <Center>
             <CssBaseline />
-            <Route
-              exact
-              path="/"
-              render={() => (
-                <Redirect
-                  to={this.state.hasToken ? '/dashboard' : '/registration'}
-                />
-              )}
-            />
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/registration" component={SignupForm} />
-            <Route path="/login" component={LoginForm} />
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={() => (
+                  <Redirect
+                    to={
+                      localStorage.getItem(ACCESS_TOKEN_KEY)
+                        ? '/dashboard'
+                        : '/registration'
+                    }
+                  />
+                )}
+              />
+              <Route path="/dashboard" component={Dashboard} />
+              <Route
+                path={['/registration', '/login']}
+                render={({ match, ...rest }) => (
+                  <Center>
+                    <SignupForm
+                      match={match.url === '/registration'}
+                      {...rest}
+                    />
+                    <LoginForm match={match.url === '/login'} {...rest} />
+                  </Center>
+                )}
+              />
+            </Switch>
           </Center>
         </BrowserRouter>
       </ApolloProvider>

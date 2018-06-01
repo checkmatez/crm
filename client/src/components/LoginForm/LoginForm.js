@@ -7,10 +7,19 @@ import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import styled from 'styled-components'
+import posed from 'react-pose'
 
 import { LOGIN_MUTATION } from '../../mutations/login'
 import { ACCESS_TOKEN_KEY } from '../../config/constants'
 import FormTextField from '../FormTextField'
+
+const animationConfig = {
+  visible: { opacity: 1, x: '0%' },
+  hidden: { opacity: 0, x: '100%' },
+}
+const PosedWrapper = styled(posed.div(animationConfig))`
+  position: absolute;
+`
 
 const PaperStyled = styled(Paper)`
   padding: 20px;
@@ -39,6 +48,9 @@ const makeFormSubmitHandler = mutation => async values => {
     if (error.graphQLErrors.length && error.graphQLErrors[0].errors) {
       return error.graphQLErrors[0].errors
     }
+    if (error.graphQLErrors.length && error.graphQLErrors[0].message) {
+      return { [FORM_ERROR]: error.graphQLErrors[0].message }
+    }
     if (error.message) {
       return { [FORM_ERROR]: error.message }
     }
@@ -57,44 +69,51 @@ class LoginForm extends Component {
   }
 
   renderForm = ({ handleSubmit, submitting, pristine, submitError }) => (
-    <PaperStyled>
-      <StyledForm onSubmit={handleSubmit} noValidate autoComplete="off">
-        <Typography variant="headline" gutterBottom>
-          Логин
-        </Typography>
-        <Field
-          name="email"
-          type="email"
-          label="Email"
-          placeholder="abc@ya.ru"
-          margin="normal"
-          component={FormTextField}
-        />
-        <Field
-          name="password"
-          type="password"
-          label="Пароль"
-          placeholder="123"
-          autoComplete="new-password"
-          margin="normal"
-          component={FormTextField}
-        />
-        <Typography variant="headline" gutterBottom>
-          {submitError}
-        </Typography>
-        <Button
-          variant="raised"
-          color="primary"
-          type="submit"
-          disabled={submitting || pristine}
-        >
-          Войти
-        </Button>
-        <Button component={Link} to="/registration" size="small" disableRipple>
-          Нет аккаунта? Зарегистрироваться
-        </Button>
-      </StyledForm>
-    </PaperStyled>
+    <PosedWrapper pose={this.props.match ? 'visible' : 'hidden'}>
+      <PaperStyled>
+        <StyledForm onSubmit={handleSubmit} noValidate autoComplete="off">
+          <Typography variant="headline" gutterBottom>
+            Логин
+          </Typography>
+          <Field
+            name="email"
+            type="email"
+            label="Email"
+            placeholder="abc@ya.ru"
+            margin="normal"
+            component={FormTextField}
+          />
+          <Field
+            name="password"
+            type="password"
+            label="Пароль"
+            placeholder="123"
+            autoComplete="new-password"
+            margin="normal"
+            component={FormTextField}
+          />
+          <Typography variant="headline" gutterBottom>
+            {submitError}
+          </Typography>
+          <Button
+            variant="raised"
+            color="primary"
+            type="submit"
+            disabled={submitting || pristine}
+          >
+            Войти
+          </Button>
+          <Button
+            component={Link}
+            to="/registration"
+            size="small"
+            disableRipple
+          >
+            Нет аккаунта? Зарегистрироваться
+          </Button>
+        </StyledForm>
+      </PaperStyled>
+    </PosedWrapper>
   )
 
   renderFinalForm = signup => (
