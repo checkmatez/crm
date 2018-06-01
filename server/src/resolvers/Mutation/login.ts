@@ -11,12 +11,12 @@ export const login = async (
 ) => {
   const user = await ctx.db.query.user({ where: { email } })
   if (!user) {
-    throw new Error(`No such user found for email: ${email}`)
+    throw new Error(`Пользователя не существует или неверный пароль`)
   }
 
   const valid = await bcrypt.compare(password, user.password)
   if (!valid) {
-    throw new Error('Invalid password')
+    throw new Error('Пользователя не существует или неверный пароль')
   }
 
   return {
