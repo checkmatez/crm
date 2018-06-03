@@ -16,6 +16,7 @@ import SendIcon from '@material-ui/icons/Send'
 import styled, { css } from 'styled-components'
 
 import ContactList from '../ContactList'
+import CustomerDetails from '../CustomerDetails'
 
 const Root = styled.div`
   flex: 1;
@@ -95,7 +96,7 @@ class MainPage extends React.Component {
             <StyledListItem component={Link} to="/dashboard">
               <InboxIcon />
             </StyledListItem>
-            <StyledListItem component={Link} to="/contacts">
+            <StyledListItem component={Link} to="/customers">
               <StarIcon />
             </StyledListItem>
             <StyledListItem component={Link} to="/login">
@@ -115,7 +116,8 @@ class MainPage extends React.Component {
           </Toolbar>
         </StyledAppBar>
         <MainContent>
-          <Route path="/contacts" component={ContactList} />
+          <Route exact path="/customers" component={ContactList} />
+          <Route exact path="/customer/:id" component={CustomerDetails} />
         </MainContent>
       </Root>
     )

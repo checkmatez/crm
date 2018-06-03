@@ -23,6 +23,7 @@
     "apollo-link-ws": "^1.0.8",
     "apollo-upload-client": "^8.0.0",
     "apollo-utilities": "^1.0.12",
+    "date-fns": "^1.29.0",
     "final-form": "^4.6.2",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.9.2",

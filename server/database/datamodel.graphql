@@ -38,7 +38,7 @@ type ContactDetail {
   kind: ContactDetailsKind!
   value: String!
   rawValue: String!
-  owner: Lead! @relation(name: "LeadContactDetails")
+  owner: Lead @relation(name: "LeadContactDetails")
 }
 
 type Color {
@@ -48,13 +48,15 @@ type Color {
   hexValue: String!
 }
 
-type Client {
+type Customer {
   id: ID! @unique
   createdAt: DateTime!
   updatedAt: DateTime!
   # --------------------
   name: String!
   manager: User
+  contactDetails: [ContactDetail!]!
+    @relation(name: "CustomerContactDetails", onDelete: CASCADE)
 }
 
 type Order {
@@ -62,7 +64,7 @@ type Order {
   createdAt: DateTime!
   updatedAt: DateTime!
   # --------------------
-  client: Client!
+  customer: Customer!
   manager: User
   positions: [OrderPositions!]!
 }

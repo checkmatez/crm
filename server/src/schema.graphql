@@ -1,5 +1,16 @@
+# import CustomerOrderByInput from "./generated/prisma.graphql"
+# import CustomerConnection from "./generated/prisma.graphql"
+
 type Query {
   me: User
+
+  customer(id: ID!): Customer
+
+  customers(
+    first: Int!
+    skip: Int!
+    orderBy: CustomerOrderByInput
+  ): CustomerConnection!
 }
 
 type Mutation {
@@ -16,4 +27,24 @@ type User {
   id: ID!
   email: String!
   name: String!
+}
+
+type Customer {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  # --------------------
+  name: String!
+  manager: User
+  contactDetails: [ContactDetail!]!
+}
+
+type ContactDetail {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  # --------------------
+  kind: ContactDetailsKind!
+  value: String!
+  rawValue: String!
 }

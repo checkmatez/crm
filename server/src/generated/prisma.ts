@@ -9,7 +9,7 @@ export interface Query {
     leadStates: <T = LeadState[]>(args: { where?: LeadStateWhereInput, orderBy?: LeadStateOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     contactDetails: <T = ContactDetail[]>(args: { where?: ContactDetailWhereInput, orderBy?: ContactDetailOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     colors: <T = Color[]>(args: { where?: ColorWhereInput, orderBy?: ColorOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    clients: <T = Client[]>(args: { where?: ClientWhereInput, orderBy?: ClientOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    customers: <T = Customer[]>(args: { where?: CustomerWhereInput, orderBy?: CustomerOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     orders: <T = Order[]>(args: { where?: OrderWhereInput, orderBy?: OrderOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     orderPositionses: <T = OrderPositions[]>(args: { where?: OrderPositionsWhereInput, orderBy?: OrderPositionsOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     currencies: <T = Currency[]>(args: { where?: CurrencyWhereInput, orderBy?: CurrencyOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -19,7 +19,7 @@ export interface Query {
     leadState: <T = LeadState | null>(args: { where: LeadStateWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     contactDetail: <T = ContactDetail | null>(args: { where: ContactDetailWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     color: <T = Color | null>(args: { where: ColorWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    client: <T = Client | null>(args: { where: ClientWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    customer: <T = Customer | null>(args: { where: CustomerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     order: <T = Order | null>(args: { where: OrderWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     orderPositions: <T = OrderPositions | null>(args: { where: OrderPositionsWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     currency: <T = Currency | null>(args: { where: CurrencyWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -29,7 +29,7 @@ export interface Query {
     leadStatesConnection: <T = LeadStateConnection>(args: { where?: LeadStateWhereInput, orderBy?: LeadStateOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     contactDetailsConnection: <T = ContactDetailConnection>(args: { where?: ContactDetailWhereInput, orderBy?: ContactDetailOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     colorsConnection: <T = ColorConnection>(args: { where?: ColorWhereInput, orderBy?: ColorOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    clientsConnection: <T = ClientConnection>(args: { where?: ClientWhereInput, orderBy?: ClientOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    customersConnection: <T = CustomerConnection>(args: { where?: CustomerWhereInput, orderBy?: CustomerOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     ordersConnection: <T = OrderConnection>(args: { where?: OrderWhereInput, orderBy?: OrderOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     orderPositionsesConnection: <T = OrderPositionsConnection>(args: { where?: OrderPositionsWhereInput, orderBy?: OrderPositionsOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     currenciesConnection: <T = CurrencyConnection>(args: { where?: CurrencyWhereInput, orderBy?: CurrencyOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -43,7 +43,7 @@ export interface Mutation {
     createLeadState: <T = LeadState>(args: { data: LeadStateCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createContactDetail: <T = ContactDetail>(args: { data: ContactDetailCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createColor: <T = Color>(args: { data: ColorCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    createClient: <T = Client>(args: { data: ClientCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createCustomer: <T = Customer>(args: { data: CustomerCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createOrder: <T = Order>(args: { data: OrderCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createOrderPositions: <T = OrderPositions>(args: { data: OrderPositionsCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createCurrency: <T = Currency>(args: { data: CurrencyCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -53,7 +53,7 @@ export interface Mutation {
     updateLeadState: <T = LeadState | null>(args: { data: LeadStateUpdateInput, where: LeadStateWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateContactDetail: <T = ContactDetail | null>(args: { data: ContactDetailUpdateInput, where: ContactDetailWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateColor: <T = Color | null>(args: { data: ColorUpdateInput, where: ColorWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateClient: <T = Client | null>(args: { data: ClientUpdateInput, where: ClientWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateCustomer: <T = Customer | null>(args: { data: CustomerUpdateInput, where: CustomerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateOrder: <T = Order | null>(args: { data: OrderUpdateInput, where: OrderWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateOrderPositions: <T = OrderPositions | null>(args: { data: OrderPositionsUpdateInput, where: OrderPositionsWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateCurrency: <T = Currency | null>(args: { data: CurrencyUpdateInput, where: CurrencyWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -63,7 +63,7 @@ export interface Mutation {
     deleteLeadState: <T = LeadState | null>(args: { where: LeadStateWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteContactDetail: <T = ContactDetail | null>(args: { where: ContactDetailWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteColor: <T = Color | null>(args: { where: ColorWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteClient: <T = Client | null>(args: { where: ClientWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteCustomer: <T = Customer | null>(args: { where: CustomerWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteOrder: <T = Order | null>(args: { where: OrderWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteOrderPositions: <T = OrderPositions | null>(args: { where: OrderPositionsWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteCurrency: <T = Currency | null>(args: { where: CurrencyWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -73,7 +73,7 @@ export interface Mutation {
     upsertLeadState: <T = LeadState>(args: { where: LeadStateWhereUniqueInput, create: LeadStateCreateInput, update: LeadStateUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertContactDetail: <T = ContactDetail>(args: { where: ContactDetailWhereUniqueInput, create: ContactDetailCreateInput, update: ContactDetailUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertColor: <T = Color>(args: { where: ColorWhereUniqueInput, create: ColorCreateInput, update: ColorUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    upsertClient: <T = Client>(args: { where: ClientWhereUniqueInput, create: ClientCreateInput, update: ClientUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    upsertCustomer: <T = Customer>(args: { where: CustomerWhereUniqueInput, create: CustomerCreateInput, update: CustomerUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertOrder: <T = Order>(args: { where: OrderWhereUniqueInput, create: OrderCreateInput, update: OrderUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertOrderPositions: <T = OrderPositions>(args: { where: OrderPositionsWhereUniqueInput, create: OrderPositionsCreateInput, update: OrderPositionsUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertCurrency: <T = Currency>(args: { where: CurrencyWhereUniqueInput, create: CurrencyCreateInput, update: CurrencyUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -83,7 +83,7 @@ export interface Mutation {
     updateManyLeadStates: <T = BatchPayload>(args: { data: LeadStateUpdateInput, where?: LeadStateWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyContactDetails: <T = BatchPayload>(args: { data: ContactDetailUpdateInput, where?: ContactDetailWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyColors: <T = BatchPayload>(args: { data: ColorUpdateInput, where?: ColorWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyClients: <T = BatchPayload>(args: { data: ClientUpdateInput, where?: ClientWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyCustomers: <T = BatchPayload>(args: { data: CustomerUpdateInput, where?: CustomerWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyOrders: <T = BatchPayload>(args: { data: OrderUpdateInput, where?: OrderWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyOrderPositionses: <T = BatchPayload>(args: { data: OrderPositionsUpdateInput, where?: OrderPositionsWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyCurrencies: <T = BatchPayload>(args: { data: CurrencyUpdateInput, where?: CurrencyWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -93,7 +93,7 @@ export interface Mutation {
     deleteManyLeadStates: <T = BatchPayload>(args: { where?: LeadStateWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyContactDetails: <T = BatchPayload>(args: { where?: ContactDetailWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyColors: <T = BatchPayload>(args: { where?: ColorWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManyClients: <T = BatchPayload>(args: { where?: ClientWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyCustomers: <T = BatchPayload>(args: { where?: CustomerWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyOrders: <T = BatchPayload>(args: { where?: OrderWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyOrderPositionses: <T = BatchPayload>(args: { where?: OrderPositionsWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyCurrencies: <T = BatchPayload>(args: { where?: CurrencyWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
@@ -106,7 +106,7 @@ export interface Subscription {
     leadState: <T = LeadStateSubscriptionPayload | null>(args: { where?: LeadStateSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     contactDetail: <T = ContactDetailSubscriptionPayload | null>(args: { where?: ContactDetailSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     color: <T = ColorSubscriptionPayload | null>(args: { where?: ColorSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
-    client: <T = ClientSubscriptionPayload | null>(args: { where?: ClientSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    customer: <T = CustomerSubscriptionPayload | null>(args: { where?: CustomerSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     order: <T = OrderSubscriptionPayload | null>(args: { where?: OrderSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     orderPositions: <T = OrderPositionsSubscriptionPayload | null>(args: { where?: OrderPositionsSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     currency: <T = CurrencySubscriptionPayload | null>(args: { where?: CurrencySubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
@@ -119,7 +119,7 @@ export interface Exists {
   LeadState: (where?: LeadStateWhereInput) => Promise<boolean>
   ContactDetail: (where?: ContactDetailWhereInput) => Promise<boolean>
   Color: (where?: ColorWhereInput) => Promise<boolean>
-  Client: (where?: ClientWhereInput) => Promise<boolean>
+  Customer: (where?: CustomerWhereInput) => Promise<boolean>
   Order: (where?: OrderWhereInput) => Promise<boolean>
   OrderPositions: (where?: OrderPositionsWhereInput) => Promise<boolean>
   Currency: (where?: CurrencyWhereInput) => Promise<boolean>
@@ -148,11 +148,7 @@ export interface BindingConstructor<T> {
  * Type Defs
 */
 
-const typeDefs = `type AggregateClient {
-  count: Int!
-}
-
-type AggregateColor {
+const typeDefs = `type AggregateColor {
   count: Int!
 }
 
@@ -161,6 +157,10 @@ type AggregateContactDetail {
 }
 
 type AggregateCurrency {
+  count: Int!
+}
+
+type AggregateCustomer {
   count: Int!
 }
 
@@ -191,263 +191,6 @@ type AggregateUser {
 type BatchPayload {
   """The number of nodes that have been affected by the Batch operation."""
   count: Long!
-}
-
-type Client implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  name: String!
-  manager(where: UserWhereInput): User
-}
-
-"""A connection to a list of items."""
-type ClientConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [ClientEdge]!
-  aggregate: AggregateClient!
-}
-
-input ClientCreateInput {
-  name: String!
-  manager: UserCreateOneInput
-}
-
-input ClientCreateOneInput {
-  create: ClientCreateInput
-  connect: ClientWhereUniqueInput
-}
-
-"""An edge in a connection."""
-type ClientEdge {
-  """The item at the end of the edge."""
-  node: Client!
-
-  """A cursor for use in pagination."""
-  cursor: String!
-}
-
-enum ClientOrderByInput {
-  id_ASC
-  id_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  name_ASC
-  name_DESC
-}
-
-type ClientPreviousValues {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  name: String!
-}
-
-type ClientSubscriptionPayload {
-  mutation: MutationType!
-  node: Client
-  updatedFields: [String!]
-  previousValues: ClientPreviousValues
-}
-
-input ClientSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [ClientSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [ClientSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [ClientSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
-  mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
-  updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
-  updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
-  updatedFields_contains_some: [String!]
-  node: ClientWhereInput
-}
-
-input ClientUpdateDataInput {
-  name: String
-  manager: UserUpdateOneInput
-}
-
-input ClientUpdateInput {
-  name: String
-  manager: UserUpdateOneInput
-}
-
-input ClientUpdateOneInput {
-  create: ClientCreateInput
-  connect: ClientWhereUniqueInput
-  delete: Boolean
-  update: ClientUpdateDataInput
-  upsert: ClientUpsertNestedInput
-}
-
-input ClientUpsertNestedInput {
-  update: ClientUpdateDataInput!
-  create: ClientCreateInput!
-}
-
-input ClientWhereInput {
-  """Logical AND on all given filters."""
-  AND: [ClientWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [ClientWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [ClientWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  createdAt: DateTime
-
-  """All values that are not equal to given value."""
-  createdAt_not: DateTime
-
-  """All values that are contained in given list."""
-  createdAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  createdAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  createdAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  createdAt_lte: DateTime
-
-  """All values greater than the given value."""
-  createdAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  createdAt_gte: DateTime
-  updatedAt: DateTime
-
-  """All values that are not equal to given value."""
-  updatedAt_not: DateTime
-
-  """All values that are contained in given list."""
-  updatedAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  updatedAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  updatedAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  updatedAt_lte: DateTime
-
-  """All values greater than the given value."""
-  updatedAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  updatedAt_gte: DateTime
-  name: String
-
-  """All values that are not equal to given value."""
-  name_not: String
-
-  """All values that are contained in given list."""
-  name_in: [String!]
-
-  """All values that are not contained in given list."""
-  name_not_in: [String!]
-
-  """All values less than the given value."""
-  name_lt: String
-
-  """All values less than or equal the given value."""
-  name_lte: String
-
-  """All values greater than the given value."""
-  name_gt: String
-
-  """All values greater than or equal the given value."""
-  name_gte: String
-
-  """All values containing the given string."""
-  name_contains: String
-
-  """All values not containing the given string."""
-  name_not_contains: String
-
-  """All values starting with the given string."""
-  name_starts_with: String
-
-  """All values not starting with the given string."""
-  name_not_starts_with: String
-
-  """All values ending with the given string."""
-  name_ends_with: String
-
-  """All values not ending with the given string."""
-  name_not_ends_with: String
-  manager: UserWhereInput
-}
-
-input ClientWhereUniqueInput {
-  id: ID
 }
 
 type Color implements Node {
@@ -708,7 +451,7 @@ type ContactDetail implements Node {
   kind: ContactDetailsKind!
   value: String!
   rawValue: String!
-  owner(where: LeadWhereInput): Lead!
+  owner(where: LeadWhereInput): Lead
 }
 
 """A connection to a list of items."""
@@ -725,7 +468,12 @@ input ContactDetailCreateInput {
   kind: ContactDetailsKind!
   value: String!
   rawValue: String!
-  owner: LeadCreateOneWithoutContactDetailsInput!
+  owner: LeadCreateOneWithoutContactDetailsInput
+}
+
+input ContactDetailCreateManyInput {
+  create: [ContactDetailCreateInput!]
+  connect: [ContactDetailWhereUniqueInput!]
 }
 
 input ContactDetailCreateManyWithoutOwnerInput {
@@ -817,11 +565,27 @@ input ContactDetailSubscriptionWhereInput {
   node: ContactDetailWhereInput
 }
 
+input ContactDetailUpdateDataInput {
+  kind: ContactDetailsKind
+  value: String
+  rawValue: String
+  owner: LeadUpdateOneWithoutContactDetailsInput
+}
+
 input ContactDetailUpdateInput {
   kind: ContactDetailsKind
   value: String
   rawValue: String
   owner: LeadUpdateOneWithoutContactDetailsInput
+}
+
+input ContactDetailUpdateManyInput {
+  create: [ContactDetailCreateInput!]
+  connect: [ContactDetailWhereUniqueInput!]
+  disconnect: [ContactDetailWhereUniqueInput!]
+  delete: [ContactDetailWhereUniqueInput!]
+  update: [ContactDetailUpdateWithWhereUniqueNestedInput!]
+  upsert: [ContactDetailUpsertWithWhereUniqueNestedInput!]
 }
 
 input ContactDetailUpdateManyWithoutOwnerInput {
@@ -839,9 +603,20 @@ input ContactDetailUpdateWithoutOwnerDataInput {
   rawValue: String
 }
 
+input ContactDetailUpdateWithWhereUniqueNestedInput {
+  where: ContactDetailWhereUniqueInput!
+  data: ContactDetailUpdateDataInput!
+}
+
 input ContactDetailUpdateWithWhereUniqueWithoutOwnerInput {
   where: ContactDetailWhereUniqueInput!
   data: ContactDetailUpdateWithoutOwnerDataInput!
+}
+
+input ContactDetailUpsertWithWhereUniqueNestedInput {
+  where: ContactDetailWhereUniqueInput!
+  update: ContactDetailUpdateDataInput!
+  create: ContactDetailCreateInput!
 }
 
 input ContactDetailUpsertWithWhereUniqueWithoutOwnerInput {
@@ -1339,6 +1114,270 @@ input CurrencyWhereUniqueInput {
   id: ID
 }
 
+type Customer implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  manager(where: UserWhereInput): User
+  contactDetails(where: ContactDetailWhereInput, orderBy: ContactDetailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ContactDetail!]
+}
+
+"""A connection to a list of items."""
+type CustomerConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [CustomerEdge]!
+  aggregate: AggregateCustomer!
+}
+
+input CustomerCreateInput {
+  name: String!
+  manager: UserCreateOneInput
+  contactDetails: ContactDetailCreateManyInput
+}
+
+input CustomerCreateOneInput {
+  create: CustomerCreateInput
+  connect: CustomerWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type CustomerEdge {
+  """The item at the end of the edge."""
+  node: Customer!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum CustomerOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  name_ASC
+  name_DESC
+}
+
+type CustomerPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+}
+
+type CustomerSubscriptionPayload {
+  mutation: MutationType!
+  node: Customer
+  updatedFields: [String!]
+  previousValues: CustomerPreviousValues
+}
+
+input CustomerSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CustomerSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CustomerSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CustomerSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: CustomerWhereInput
+}
+
+input CustomerUpdateDataInput {
+  name: String
+  manager: UserUpdateOneInput
+  contactDetails: ContactDetailUpdateManyInput
+}
+
+input CustomerUpdateInput {
+  name: String
+  manager: UserUpdateOneInput
+  contactDetails: ContactDetailUpdateManyInput
+}
+
+input CustomerUpdateOneInput {
+  create: CustomerCreateInput
+  connect: CustomerWhereUniqueInput
+  delete: Boolean
+  update: CustomerUpdateDataInput
+  upsert: CustomerUpsertNestedInput
+}
+
+input CustomerUpsertNestedInput {
+  update: CustomerUpdateDataInput!
+  create: CustomerCreateInput!
+}
+
+input CustomerWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CustomerWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CustomerWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CustomerWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  manager: UserWhereInput
+  contactDetails_every: ContactDetailWhereInput
+  contactDetails_some: ContactDetailWhereInput
+  contactDetails_none: ContactDetailWhereInput
+}
+
+input CustomerWhereUniqueInput {
+  id: ID
+}
+
 scalar DateTime
 
 type Lead implements Node {
@@ -1719,6 +1758,7 @@ input LeadUpdateInput {
 input LeadUpdateOneWithoutContactDetailsInput {
   create: LeadCreateWithoutContactDetailsInput
   connect: LeadWhereUniqueInput
+  disconnect: Boolean
   delete: Boolean
   update: LeadUpdateWithoutContactDetailsDataInput
   upsert: LeadUpsertWithoutContactDetailsInput
@@ -1932,7 +1972,7 @@ type Mutation {
   createLeadState(data: LeadStateCreateInput!): LeadState!
   createContactDetail(data: ContactDetailCreateInput!): ContactDetail!
   createColor(data: ColorCreateInput!): Color!
-  createClient(data: ClientCreateInput!): Client!
+  createCustomer(data: CustomerCreateInput!): Customer!
   createOrder(data: OrderCreateInput!): Order!
   createOrderPositions(data: OrderPositionsCreateInput!): OrderPositions!
   createCurrency(data: CurrencyCreateInput!): Currency!
@@ -1942,7 +1982,7 @@ type Mutation {
   updateLeadState(data: LeadStateUpdateInput!, where: LeadStateWhereUniqueInput!): LeadState
   updateContactDetail(data: ContactDetailUpdateInput!, where: ContactDetailWhereUniqueInput!): ContactDetail
   updateColor(data: ColorUpdateInput!, where: ColorWhereUniqueInput!): Color
-  updateClient(data: ClientUpdateInput!, where: ClientWhereUniqueInput!): Client
+  updateCustomer(data: CustomerUpdateInput!, where: CustomerWhereUniqueInput!): Customer
   updateOrder(data: OrderUpdateInput!, where: OrderWhereUniqueInput!): Order
   updateOrderPositions(data: OrderPositionsUpdateInput!, where: OrderPositionsWhereUniqueInput!): OrderPositions
   updateCurrency(data: CurrencyUpdateInput!, where: CurrencyWhereUniqueInput!): Currency
@@ -1952,7 +1992,7 @@ type Mutation {
   deleteLeadState(where: LeadStateWhereUniqueInput!): LeadState
   deleteContactDetail(where: ContactDetailWhereUniqueInput!): ContactDetail
   deleteColor(where: ColorWhereUniqueInput!): Color
-  deleteClient(where: ClientWhereUniqueInput!): Client
+  deleteCustomer(where: CustomerWhereUniqueInput!): Customer
   deleteOrder(where: OrderWhereUniqueInput!): Order
   deleteOrderPositions(where: OrderPositionsWhereUniqueInput!): OrderPositions
   deleteCurrency(where: CurrencyWhereUniqueInput!): Currency
@@ -1962,7 +2002,7 @@ type Mutation {
   upsertLeadState(where: LeadStateWhereUniqueInput!, create: LeadStateCreateInput!, update: LeadStateUpdateInput!): LeadState!
   upsertContactDetail(where: ContactDetailWhereUniqueInput!, create: ContactDetailCreateInput!, update: ContactDetailUpdateInput!): ContactDetail!
   upsertColor(where: ColorWhereUniqueInput!, create: ColorCreateInput!, update: ColorUpdateInput!): Color!
-  upsertClient(where: ClientWhereUniqueInput!, create: ClientCreateInput!, update: ClientUpdateInput!): Client!
+  upsertCustomer(where: CustomerWhereUniqueInput!, create: CustomerCreateInput!, update: CustomerUpdateInput!): Customer!
   upsertOrder(where: OrderWhereUniqueInput!, create: OrderCreateInput!, update: OrderUpdateInput!): Order!
   upsertOrderPositions(where: OrderPositionsWhereUniqueInput!, create: OrderPositionsCreateInput!, update: OrderPositionsUpdateInput!): OrderPositions!
   upsertCurrency(where: CurrencyWhereUniqueInput!, create: CurrencyCreateInput!, update: CurrencyUpdateInput!): Currency!
@@ -1972,7 +2012,7 @@ type Mutation {
   updateManyLeadStates(data: LeadStateUpdateInput!, where: LeadStateWhereInput): BatchPayload!
   updateManyContactDetails(data: ContactDetailUpdateInput!, where: ContactDetailWhereInput): BatchPayload!
   updateManyColors(data: ColorUpdateInput!, where: ColorWhereInput): BatchPayload!
-  updateManyClients(data: ClientUpdateInput!, where: ClientWhereInput): BatchPayload!
+  updateManyCustomers(data: CustomerUpdateInput!, where: CustomerWhereInput): BatchPayload!
   updateManyOrders(data: OrderUpdateInput!, where: OrderWhereInput): BatchPayload!
   updateManyOrderPositionses(data: OrderPositionsUpdateInput!, where: OrderPositionsWhereInput): BatchPayload!
   updateManyCurrencies(data: CurrencyUpdateInput!, where: CurrencyWhereInput): BatchPayload!
@@ -1982,7 +2022,7 @@ type Mutation {
   deleteManyLeadStates(where: LeadStateWhereInput): BatchPayload!
   deleteManyContactDetails(where: ContactDetailWhereInput): BatchPayload!
   deleteManyColors(where: ColorWhereInput): BatchPayload!
-  deleteManyClients(where: ClientWhereInput): BatchPayload!
+  deleteManyCustomers(where: CustomerWhereInput): BatchPayload!
   deleteManyOrders(where: OrderWhereInput): BatchPayload!
   deleteManyOrderPositionses(where: OrderPositionsWhereInput): BatchPayload!
   deleteManyCurrencies(where: CurrencyWhereInput): BatchPayload!
@@ -2326,7 +2366,7 @@ type Order implements Node {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
-  client(where: ClientWhereInput): Client!
+  customer(where: CustomerWhereInput): Customer!
   manager(where: UserWhereInput): User
   positions(where: OrderPositionsWhereInput, orderBy: OrderPositionsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [OrderPositions!]
 }
@@ -2342,7 +2382,7 @@ type OrderConnection {
 }
 
 input OrderCreateInput {
-  client: ClientCreateOneInput!
+  customer: CustomerCreateOneInput!
   manager: UserCreateOneInput
   positions: OrderPositionsCreateManyInput
 }
@@ -2720,7 +2760,7 @@ input OrderSubscriptionWhereInput {
 }
 
 input OrderUpdateInput {
-  client: ClientUpdateOneInput
+  customer: CustomerUpdateOneInput
   manager: UserUpdateOneInput
   positions: OrderPositionsUpdateManyInput
 }
@@ -2818,7 +2858,7 @@ input OrderWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
-  client: ClientWhereInput
+  customer: CustomerWhereInput
   manager: UserWhereInput
   positions_every: OrderPositionsWhereInput
   positions_some: OrderPositionsWhereInput
@@ -2850,7 +2890,7 @@ type Query {
   leadStates(where: LeadStateWhereInput, orderBy: LeadStateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [LeadState]!
   contactDetails(where: ContactDetailWhereInput, orderBy: ContactDetailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ContactDetail]!
   colors(where: ColorWhereInput, orderBy: ColorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Color]!
-  clients(where: ClientWhereInput, orderBy: ClientOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Client]!
+  customers(where: CustomerWhereInput, orderBy: CustomerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Customer]!
   orders(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Order]!
   orderPositionses(where: OrderPositionsWhereInput, orderBy: OrderPositionsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [OrderPositions]!
   currencies(where: CurrencyWhereInput, orderBy: CurrencyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Currency]!
@@ -2860,7 +2900,7 @@ type Query {
   leadState(where: LeadStateWhereUniqueInput!): LeadState
   contactDetail(where: ContactDetailWhereUniqueInput!): ContactDetail
   color(where: ColorWhereUniqueInput!): Color
-  client(where: ClientWhereUniqueInput!): Client
+  customer(where: CustomerWhereUniqueInput!): Customer
   order(where: OrderWhereUniqueInput!): Order
   orderPositions(where: OrderPositionsWhereUniqueInput!): OrderPositions
   currency(where: CurrencyWhereUniqueInput!): Currency
@@ -2870,7 +2910,7 @@ type Query {
   leadStatesConnection(where: LeadStateWhereInput, orderBy: LeadStateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LeadStateConnection!
   contactDetailsConnection(where: ContactDetailWhereInput, orderBy: ContactDetailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ContactDetailConnection!
   colorsConnection(where: ColorWhereInput, orderBy: ColorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ColorConnection!
-  clientsConnection(where: ClientWhereInput, orderBy: ClientOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ClientConnection!
+  customersConnection(where: CustomerWhereInput, orderBy: CustomerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CustomerConnection!
   ordersConnection(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OrderConnection!
   orderPositionsesConnection(where: OrderPositionsWhereInput, orderBy: OrderPositionsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OrderPositionsConnection!
   currenciesConnection(where: CurrencyWhereInput, orderBy: CurrencyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CurrencyConnection!
@@ -2889,7 +2929,7 @@ type Subscription {
   leadState(where: LeadStateSubscriptionWhereInput): LeadStateSubscriptionPayload
   contactDetail(where: ContactDetailSubscriptionWhereInput): ContactDetailSubscriptionPayload
   color(where: ColorSubscriptionWhereInput): ColorSubscriptionPayload
-  client(where: ClientSubscriptionWhereInput): ClientSubscriptionPayload
+  customer(where: CustomerSubscriptionWhereInput): CustomerSubscriptionPayload
   order(where: OrderSubscriptionWhereInput): OrderSubscriptionPayload
   orderPositions(where: OrderPositionsSubscriptionWhereInput): OrderPositionsSubscriptionPayload
   currency(where: CurrencySubscriptionWhereInput): CurrencySubscriptionPayload
@@ -2918,7 +2958,7 @@ type UserConnection {
 input UserCreateInput {
   email: String!
   password: String!
-  name: String!
+  name: String
 }
 
 input UserCreateOneInput {
@@ -3266,7 +3306,7 @@ export type ContactDetailOrderByInput =   'id_ASC' |
   'rawValue_ASC' |
   'rawValue_DESC'
 
-export type ClientOrderByInput =   'id_ASC' |
+export type CustomerOrderByInput =   'id_ASC' |
   'id_DESC' |
   'createdAt_ASC' |
   'createdAt_DESC' |
@@ -3371,9 +3411,11 @@ export type CurrencyOrderByInput =   'id_ASC' |
   'name_ASC' |
   'name_DESC'
 
-export interface UserCreateOneInput {
-  create?: UserCreateInput
-  connect?: UserWhereUniqueInput
+export interface ContactDetailCreateInput {
+  kind: ContactDetailsKind
+  value: String
+  rawValue: String
+  owner?: LeadCreateOneWithoutContactDetailsInput
 }
 
 export interface UserWhereInput {
@@ -3454,32 +3496,33 @@ export interface UserWhereInput {
   name_not_ends_with?: String
 }
 
-export interface ClientUpsertNestedInput {
-  update: ClientUpdateDataInput
-  create: ClientCreateInput
-}
-
-export interface LeadStateUpdateDataInput {
-  name?: String
-  color?: ColorUpdateOneInput
-}
-
-export interface ClientUpdateDataInput {
-  name?: String
+export interface OrderUpdateInput {
+  customer?: CustomerUpdateOneInput
   manager?: UserUpdateOneInput
+  positions?: OrderPositionsUpdateManyInput
 }
 
-export interface ClientCreateOneInput {
-  create?: ClientCreateInput
-  connect?: ClientWhereUniqueInput
+export interface LeadStateUpsertNestedInput {
+  update: LeadStateUpdateDataInput
+  create: LeadStateCreateInput
 }
 
-export interface ClientUpdateOneInput {
-  create?: ClientCreateInput
-  connect?: ClientWhereUniqueInput
-  delete?: Boolean
-  update?: ClientUpdateDataInput
-  upsert?: ClientUpsertNestedInput
+export interface ContactDetailUpsertWithWhereUniqueNestedInput {
+  where: ContactDetailWhereUniqueInput
+  update: ContactDetailUpdateDataInput
+  create: ContactDetailCreateInput
+}
+
+export interface OrderPositionsCreateManyInput {
+  create?: OrderPositionsCreateInput[] | OrderPositionsCreateInput
+  connect?: OrderPositionsWhereUniqueInput[] | OrderPositionsWhereUniqueInput
+}
+
+export interface ContactDetailUpdateDataInput {
+  kind?: ContactDetailsKind
+  value?: String
+  rawValue?: String
+  owner?: LeadUpdateOneWithoutContactDetailsInput
 }
 
 export interface CurrencySubscriptionWhereInput {
@@ -3493,10 +3536,9 @@ export interface CurrencySubscriptionWhereInput {
   node?: CurrencyWhereInput
 }
 
-export interface OrderUpdateInput {
-  client?: ClientUpdateOneInput
-  manager?: UserUpdateOneInput
-  positions?: OrderPositionsUpdateManyInput
+export interface ContactDetailUpdateWithWhereUniqueNestedInput {
+  where: ContactDetailWhereUniqueInput
+  data: ContactDetailUpdateDataInput
 }
 
 export interface ColorWhereInput {
@@ -3547,9 +3589,13 @@ export interface ColorWhereInput {
   hexValue_not_ends_with?: String
 }
 
-export interface ClientUpdateInput {
-  name?: String
-  manager?: UserUpdateOneInput
+export interface ContactDetailUpdateManyInput {
+  create?: ContactDetailCreateInput[] | ContactDetailCreateInput
+  connect?: ContactDetailWhereUniqueInput[] | ContactDetailWhereUniqueInput
+  disconnect?: ContactDetailWhereUniqueInput[] | ContactDetailWhereUniqueInput
+  delete?: ContactDetailWhereUniqueInput[] | ContactDetailWhereUniqueInput
+  update?: ContactDetailUpdateWithWhereUniqueNestedInput[] | ContactDetailUpdateWithWhereUniqueNestedInput
+  upsert?: ContactDetailUpsertWithWhereUniqueNestedInput[] | ContactDetailUpsertWithWhereUniqueNestedInput
 }
 
 export interface LeadStateWhereInput {
@@ -3603,9 +3649,10 @@ export interface LeadStateWhereInput {
   color?: ColorWhereInput
 }
 
-export interface ColorUpdateInput {
+export interface CustomerUpdateInput {
   name?: String
-  hexValue?: String
+  manager?: UserUpdateOneInput
+  contactDetails?: ContactDetailUpdateManyInput
 }
 
 export interface OrderWhereInput {
@@ -3642,16 +3689,16 @@ export interface OrderWhereInput {
   updatedAt_lte?: DateTime
   updatedAt_gt?: DateTime
   updatedAt_gte?: DateTime
-  client?: ClientWhereInput
+  customer?: CustomerWhereInput
   manager?: UserWhereInput
   positions_every?: OrderPositionsWhereInput
   positions_some?: OrderPositionsWhereInput
   positions_none?: OrderPositionsWhereInput
 }
 
-export interface LeadUpsertWithoutContactDetailsInput {
-  update: LeadUpdateWithoutContactDetailsDataInput
-  create: LeadCreateWithoutContactDetailsInput
+export interface ColorUpdateInput {
+  name?: String
+  hexValue?: String
 }
 
 export interface OrderSubscriptionWhereInput {
@@ -3665,11 +3712,9 @@ export interface OrderSubscriptionWhereInput {
   node?: OrderWhereInput
 }
 
-export interface LeadUpdateWithoutContactDetailsDataInput {
-  description?: String
-  note?: String
-  state?: LeadStateUpdateOneInput
-  manager?: UserUpdateOneInput
+export interface LeadUpsertWithoutContactDetailsInput {
+  update: LeadUpdateWithoutContactDetailsDataInput
+  create: LeadCreateWithoutContactDetailsInput
 }
 
 export interface LeadWhereInput {
@@ -3741,12 +3786,11 @@ export interface LeadWhereInput {
   contactDetails_none?: ContactDetailWhereInput
 }
 
-export interface LeadUpdateOneWithoutContactDetailsInput {
-  create?: LeadCreateWithoutContactDetailsInput
-  connect?: LeadWhereUniqueInput
-  delete?: Boolean
-  update?: LeadUpdateWithoutContactDetailsDataInput
-  upsert?: LeadUpsertWithoutContactDetailsInput
+export interface LeadUpdateWithoutContactDetailsDataInput {
+  description?: String
+  note?: String
+  state?: LeadStateUpdateOneInput
+  manager?: UserUpdateOneInput
 }
 
 export interface ColorSubscriptionWhereInput {
@@ -3760,11 +3804,13 @@ export interface ColorSubscriptionWhereInput {
   node?: ColorWhereInput
 }
 
-export interface ContactDetailUpdateInput {
-  kind?: ContactDetailsKind
-  value?: String
-  rawValue?: String
-  owner?: LeadUpdateOneWithoutContactDetailsInput
+export interface LeadUpdateOneWithoutContactDetailsInput {
+  create?: LeadCreateWithoutContactDetailsInput
+  connect?: LeadWhereUniqueInput
+  disconnect?: Boolean
+  delete?: Boolean
+  update?: LeadUpdateWithoutContactDetailsDataInput
+  upsert?: LeadUpsertWithoutContactDetailsInput
 }
 
 export interface LeadStateSubscriptionWhereInput {
@@ -3778,9 +3824,11 @@ export interface LeadStateSubscriptionWhereInput {
   node?: LeadStateWhereInput
 }
 
-export interface LeadStateUpdateInput {
-  name?: String
-  color?: ColorUpdateOneInput
+export interface ContactDetailUpdateInput {
+  kind?: ContactDetailsKind
+  value?: String
+  rawValue?: String
+  owner?: LeadUpdateOneWithoutContactDetailsInput
 }
 
 export interface UserSubscriptionWhereInput {
@@ -3794,15 +3842,24 @@ export interface UserSubscriptionWhereInput {
   node?: UserWhereInput
 }
 
+export interface LeadStateUpdateInput {
+  name?: String
+  color?: ColorUpdateOneInput
+}
+
+export interface UserWhereUniqueInput {
+  id?: ID_Input
+  email?: String
+}
+
 export interface ContactDetailUpsertWithWhereUniqueWithoutOwnerInput {
   where: ContactDetailWhereUniqueInput
   update: ContactDetailUpdateWithoutOwnerDataInput
   create: ContactDetailCreateWithoutOwnerInput
 }
 
-export interface UserWhereUniqueInput {
+export interface LeadStateWhereUniqueInput {
   id?: ID_Input
-  email?: String
 }
 
 export interface ContactDetailUpdateWithoutOwnerDataInput {
@@ -3811,7 +3868,7 @@ export interface ContactDetailUpdateWithoutOwnerDataInput {
   rawValue?: String
 }
 
-export interface LeadStateWhereUniqueInput {
+export interface ColorWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -3820,7 +3877,7 @@ export interface ContactDetailUpdateWithWhereUniqueWithoutOwnerInput {
   data: ContactDetailUpdateWithoutOwnerDataInput
 }
 
-export interface ColorWhereUniqueInput {
+export interface OrderWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -3833,7 +3890,7 @@ export interface ContactDetailUpdateManyWithoutOwnerInput {
   upsert?: ContactDetailUpsertWithWhereUniqueWithoutOwnerInput[] | ContactDetailUpsertWithWhereUniqueWithoutOwnerInput
 }
 
-export interface OrderWhereUniqueInput {
+export interface CurrencyWhereUniqueInput {
   id?: ID_Input
 }
 
@@ -3842,67 +3899,21 @@ export interface UserUpsertNestedInput {
   create: UserCreateInput
 }
 
-export interface CurrencyWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface UserUpdateDataInput {
-  email?: String
-  password?: String
-  name?: String
-}
-
 export interface CurrencyUpdateInput {
   code?: String
   name?: String
 }
 
-export interface UserUpdateOneInput {
-  create?: UserCreateInput
-  connect?: UserWhereUniqueInput
-  delete?: Boolean
-  update?: UserUpdateDataInput
-  upsert?: UserUpsertNestedInput
+export interface UserCreateInput {
+  email: String
+  password: String
+  name?: String
 }
 
 export interface OrderPositionsUpsertWithWhereUniqueNestedInput {
   where: OrderPositionsWhereUniqueInput
   update: OrderPositionsUpdateDataInput
   create: OrderPositionsCreateInput
-}
-
-export interface LeadStateUpsertNestedInput {
-  update: LeadStateUpdateDataInput
-  create: LeadStateCreateInput
-}
-
-export interface CurrencyUpdateDataInput {
-  code?: String
-  name?: String
-}
-
-export interface ColorUpsertNestedInput {
-  update: ColorUpdateDataInput
-  create: ColorCreateInput
-}
-
-export interface NomenclatureUpsertNestedInput {
-  update: NomenclatureUpdateDataInput
-  create: NomenclatureCreateInput
-}
-
-export interface UserCreateInput {
-  email: String
-  password: String
-  name: String
-}
-
-export interface NomenclatureUpdateOneInput {
-  create?: NomenclatureCreateInput
-  connect?: NomenclatureWhereUniqueInput
-  delete?: Boolean
-  update?: NomenclatureUpdateDataInput
-  upsert?: NomenclatureUpsertNestedInput
 }
 
 export interface LeadCreateInput {
@@ -3913,9 +3924,9 @@ export interface LeadCreateInput {
   contactDetails?: ContactDetailCreateManyWithoutOwnerInput
 }
 
-export interface OrderPositionsUpdateWithWhereUniqueNestedInput {
-  where: OrderPositionsWhereUniqueInput
-  data: OrderPositionsUpdateDataInput
+export interface CurrencyUpdateDataInput {
+  code?: String
+  name?: String
 }
 
 export interface LeadStateCreateOneInput {
@@ -3923,15 +3934,9 @@ export interface LeadStateCreateOneInput {
   connect?: LeadStateWhereUniqueInput
 }
 
-export interface NomenclatureSubscriptionWhereInput {
-  AND?: NomenclatureSubscriptionWhereInput[] | NomenclatureSubscriptionWhereInput
-  OR?: NomenclatureSubscriptionWhereInput[] | NomenclatureSubscriptionWhereInput
-  NOT?: NomenclatureSubscriptionWhereInput[] | NomenclatureSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: NomenclatureWhereInput
+export interface NomenclatureUpsertNestedInput {
+  update: NomenclatureUpdateDataInput
+  create: NomenclatureCreateInput
 }
 
 export interface LeadStateCreateInput {
@@ -3939,55 +3944,12 @@ export interface LeadStateCreateInput {
   color: ColorCreateOneInput
 }
 
-export interface ClientWhereInput {
-  AND?: ClientWhereInput[] | ClientWhereInput
-  OR?: ClientWhereInput[] | ClientWhereInput
-  NOT?: ClientWhereInput[] | ClientWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  createdAt?: DateTime
-  createdAt_not?: DateTime
-  createdAt_in?: DateTime[] | DateTime
-  createdAt_not_in?: DateTime[] | DateTime
-  createdAt_lt?: DateTime
-  createdAt_lte?: DateTime
-  createdAt_gt?: DateTime
-  createdAt_gte?: DateTime
-  updatedAt?: DateTime
-  updatedAt_not?: DateTime
-  updatedAt_in?: DateTime[] | DateTime
-  updatedAt_not_in?: DateTime[] | DateTime
-  updatedAt_lt?: DateTime
-  updatedAt_lte?: DateTime
-  updatedAt_gt?: DateTime
-  updatedAt_gte?: DateTime
-  name?: String
-  name_not?: String
-  name_in?: String[] | String
-  name_not_in?: String[] | String
-  name_lt?: String
-  name_lte?: String
-  name_gt?: String
-  name_gte?: String
-  name_contains?: String
-  name_not_contains?: String
-  name_starts_with?: String
-  name_not_starts_with?: String
-  name_ends_with?: String
-  name_not_ends_with?: String
-  manager?: UserWhereInput
+export interface NomenclatureUpdateOneInput {
+  create?: NomenclatureCreateInput
+  connect?: NomenclatureWhereUniqueInput
+  delete?: Boolean
+  update?: NomenclatureUpdateDataInput
+  upsert?: NomenclatureUpsertNestedInput
 }
 
 export interface ColorCreateOneInput {
@@ -3995,66 +3957,9 @@ export interface ColorCreateOneInput {
   connect?: ColorWhereUniqueInput
 }
 
-export interface OrderPositionsWhereInput {
-  AND?: OrderPositionsWhereInput[] | OrderPositionsWhereInput
-  OR?: OrderPositionsWhereInput[] | OrderPositionsWhereInput
-  NOT?: OrderPositionsWhereInput[] | OrderPositionsWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  createdAt?: DateTime
-  createdAt_not?: DateTime
-  createdAt_in?: DateTime[] | DateTime
-  createdAt_not_in?: DateTime[] | DateTime
-  createdAt_lt?: DateTime
-  createdAt_lte?: DateTime
-  createdAt_gt?: DateTime
-  createdAt_gte?: DateTime
-  updatedAt?: DateTime
-  updatedAt_not?: DateTime
-  updatedAt_in?: DateTime[] | DateTime
-  updatedAt_not_in?: DateTime[] | DateTime
-  updatedAt_lt?: DateTime
-  updatedAt_lte?: DateTime
-  updatedAt_gt?: DateTime
-  updatedAt_gte?: DateTime
-  quantity?: Float
-  quantity_not?: Float
-  quantity_in?: Float[] | Float
-  quantity_not_in?: Float[] | Float
-  quantity_lt?: Float
-  quantity_lte?: Float
-  quantity_gt?: Float
-  quantity_gte?: Float
-  price?: Float
-  price_not?: Float
-  price_in?: Float[] | Float
-  price_not_in?: Float[] | Float
-  price_lt?: Float
-  price_lte?: Float
-  price_gt?: Float
-  price_gte?: Float
-  amount?: Float
-  amount_not?: Float
-  amount_in?: Float[] | Float
-  amount_not_in?: Float[] | Float
-  amount_lt?: Float
-  amount_lte?: Float
-  amount_gt?: Float
-  amount_gte?: Float
-  nomenclature?: NomenclatureWhereInput
-  currency?: CurrencyWhereInput
+export interface OrderPositionsUpdateWithWhereUniqueNestedInput {
+  where: OrderPositionsWhereUniqueInput
+  data: OrderPositionsUpdateDataInput
 }
 
 export interface ColorCreateInput {
@@ -4062,163 +3967,27 @@ export interface ColorCreateInput {
   hexValue: String
 }
 
-export interface CurrencyWhereInput {
-  AND?: CurrencyWhereInput[] | CurrencyWhereInput
-  OR?: CurrencyWhereInput[] | CurrencyWhereInput
-  NOT?: CurrencyWhereInput[] | CurrencyWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  createdAt?: DateTime
-  createdAt_not?: DateTime
-  createdAt_in?: DateTime[] | DateTime
-  createdAt_not_in?: DateTime[] | DateTime
-  createdAt_lt?: DateTime
-  createdAt_lte?: DateTime
-  createdAt_gt?: DateTime
-  createdAt_gte?: DateTime
-  updatedAt?: DateTime
-  updatedAt_not?: DateTime
-  updatedAt_in?: DateTime[] | DateTime
-  updatedAt_not_in?: DateTime[] | DateTime
-  updatedAt_lt?: DateTime
-  updatedAt_lte?: DateTime
-  updatedAt_gt?: DateTime
-  updatedAt_gte?: DateTime
-  code?: String
-  code_not?: String
-  code_in?: String[] | String
-  code_not_in?: String[] | String
-  code_lt?: String
-  code_lte?: String
-  code_gt?: String
-  code_gte?: String
-  code_contains?: String
-  code_not_contains?: String
-  code_starts_with?: String
-  code_not_starts_with?: String
-  code_ends_with?: String
-  code_not_ends_with?: String
-  name?: String
-  name_not?: String
-  name_in?: String[] | String
-  name_not_in?: String[] | String
-  name_lt?: String
-  name_lte?: String
-  name_gt?: String
-  name_gte?: String
-  name_contains?: String
-  name_not_contains?: String
-  name_starts_with?: String
-  name_not_starts_with?: String
-  name_ends_with?: String
-  name_not_ends_with?: String
+export interface CustomerUpsertNestedInput {
+  update: CustomerUpdateDataInput
+  create: CustomerCreateInput
 }
 
-export interface ColorUpdateDataInput {
-  name?: String
-  hexValue?: String
+export interface UserCreateOneInput {
+  create?: UserCreateInput
+  connect?: UserWhereUniqueInput
 }
 
-export interface ContactDetailSubscriptionWhereInput {
-  AND?: ContactDetailSubscriptionWhereInput[] | ContactDetailSubscriptionWhereInput
-  OR?: ContactDetailSubscriptionWhereInput[] | ContactDetailSubscriptionWhereInput
-  NOT?: ContactDetailSubscriptionWhereInput[] | ContactDetailSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: ContactDetailWhereInput
+export interface CustomerUpdateOneInput {
+  create?: CustomerCreateInput
+  connect?: CustomerWhereUniqueInput
+  delete?: Boolean
+  update?: CustomerUpdateDataInput
+  upsert?: CustomerUpsertNestedInput
 }
 
 export interface ContactDetailCreateManyWithoutOwnerInput {
   create?: ContactDetailCreateWithoutOwnerInput[] | ContactDetailCreateWithoutOwnerInput
   connect?: ContactDetailWhereUniqueInput[] | ContactDetailWhereUniqueInput
-}
-
-export interface NomenclatureUpdateInput {
-  type?: NomenclatureType
-  name?: String
-  description?: String
-}
-
-export interface ContactDetailCreateWithoutOwnerInput {
-  kind: ContactDetailsKind
-  value: String
-  rawValue: String
-}
-
-export interface ContactDetailWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface ContactDetailCreateInput {
-  kind: ContactDetailsKind
-  value: String
-  rawValue: String
-  owner: LeadCreateOneWithoutContactDetailsInput
-}
-
-export interface OrderPositionsWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface LeadCreateOneWithoutContactDetailsInput {
-  create?: LeadCreateWithoutContactDetailsInput
-  connect?: LeadWhereUniqueInput
-}
-
-export interface OrderPositionsUpdateInput {
-  quantity?: Float
-  price?: Float
-  amount?: Float
-  nomenclature?: NomenclatureUpdateOneInput
-  currency?: CurrencyUpdateOneInput
-}
-
-export interface LeadCreateWithoutContactDetailsInput {
-  description: String
-  note?: String
-  state: LeadStateCreateOneInput
-  manager: UserCreateOneInput
-}
-
-export interface CurrencyUpdateOneInput {
-  create?: CurrencyCreateInput
-  connect?: CurrencyWhereUniqueInput
-  delete?: Boolean
-  update?: CurrencyUpdateDataInput
-  upsert?: CurrencyUpsertNestedInput
-}
-
-export interface ClientCreateInput {
-  name: String
-  manager?: UserCreateOneInput
-}
-
-export interface OrderPositionsUpdateDataInput {
-  quantity?: Float
-  price?: Float
-  amount?: Float
-  nomenclature?: NomenclatureUpdateOneInput
-  currency?: CurrencyUpdateOneInput
-}
-
-export interface OrderCreateInput {
-  client: ClientCreateOneInput
-  manager?: UserCreateOneInput
-  positions?: OrderPositionsCreateManyInput
 }
 
 export interface ContactDetailWhereInput {
@@ -4290,12 +4059,27 @@ export interface ContactDetailWhereInput {
   owner?: LeadWhereInput
 }
 
-export interface ColorUpdateOneInput {
-  create?: ColorCreateInput
-  connect?: ColorWhereUniqueInput
-  delete?: Boolean
-  update?: ColorUpdateDataInput
-  upsert?: ColorUpsertNestedInput
+export interface ContactDetailCreateWithoutOwnerInput {
+  kind: ContactDetailsKind
+  value: String
+  rawValue: String
+}
+
+export interface OrderPositionsSubscriptionWhereInput {
+  AND?: OrderPositionsSubscriptionWhereInput[] | OrderPositionsSubscriptionWhereInput
+  OR?: OrderPositionsSubscriptionWhereInput[] | OrderPositionsSubscriptionWhereInput
+  NOT?: OrderPositionsSubscriptionWhereInput[] | OrderPositionsSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: OrderPositionsWhereInput
+}
+
+export interface UserUpdateDataInput {
+  email?: String
+  password?: String
+  name?: String
 }
 
 export interface NomenclatureWhereInput {
@@ -4366,9 +4150,27 @@ export interface NomenclatureWhereInput {
   description_not_ends_with?: String
 }
 
-export interface OrderPositionsCreateManyInput {
-  create?: OrderPositionsCreateInput[] | OrderPositionsCreateInput
-  connect?: OrderPositionsWhereUniqueInput[] | OrderPositionsWhereUniqueInput
+export interface LeadCreateOneWithoutContactDetailsInput {
+  create?: LeadCreateWithoutContactDetailsInput
+  connect?: LeadWhereUniqueInput
+}
+
+export interface CustomerSubscriptionWhereInput {
+  AND?: CustomerSubscriptionWhereInput[] | CustomerSubscriptionWhereInput
+  OR?: CustomerSubscriptionWhereInput[] | CustomerSubscriptionWhereInput
+  NOT?: CustomerSubscriptionWhereInput[] | CustomerSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: CustomerWhereInput
+}
+
+export interface LeadCreateWithoutContactDetailsInput {
+  description: String
+  note?: String
+  state: LeadStateCreateOneInput
+  manager: UserCreateOneInput
 }
 
 export interface LeadSubscriptionWhereInput {
@@ -4382,21 +4184,38 @@ export interface LeadSubscriptionWhereInput {
   node?: LeadWhereInput
 }
 
-export interface OrderPositionsCreateInput {
-  quantity: Float
-  price: Float
-  amount: Float
-  nomenclature: NomenclatureCreateOneInput
-  currency: CurrencyCreateOneInput
+export interface CustomerCreateInput {
+  name: String
+  manager?: UserCreateOneInput
+  contactDetails?: ContactDetailCreateManyInput
 }
 
-export interface ClientWhereUniqueInput {
+export interface LeadWhereUniqueInput {
   id?: ID_Input
 }
 
-export interface NomenclatureCreateOneInput {
-  create?: NomenclatureCreateInput
-  connect?: NomenclatureWhereUniqueInput
+export interface ContactDetailCreateManyInput {
+  create?: ContactDetailCreateInput[] | ContactDetailCreateInput
+  connect?: ContactDetailWhereUniqueInput[] | ContactDetailWhereUniqueInput
+}
+
+export interface CustomerWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface OrderCreateInput {
+  customer: CustomerCreateOneInput
+  manager?: UserCreateOneInput
+  positions?: OrderPositionsCreateManyInput
+}
+
+export interface NomenclatureWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface CustomerCreateOneInput {
+  create?: CustomerCreateInput
+  connect?: CustomerWhereUniqueInput
 }
 
 export interface CurrencyUpsertNestedInput {
@@ -4404,10 +4223,26 @@ export interface CurrencyUpsertNestedInput {
   create: CurrencyCreateInput
 }
 
-export interface NomenclatureCreateInput {
+export interface UserUpdateOneInput {
+  create?: UserCreateInput
+  connect?: UserWhereUniqueInput
+  delete?: Boolean
+  update?: UserUpdateDataInput
+  upsert?: UserUpsertNestedInput
+}
+
+export interface NomenclatureUpdateDataInput {
   type?: NomenclatureType
-  name: String
-  description: String
+  name?: String
+  description?: String
+}
+
+export interface OrderPositionsCreateInput {
+  quantity: Float
+  price: Float
+  amount: Float
+  nomenclature: NomenclatureCreateOneInput
+  currency: CurrencyCreateOneInput
 }
 
 export interface OrderPositionsUpdateManyInput {
@@ -4419,28 +4254,127 @@ export interface OrderPositionsUpdateManyInput {
   upsert?: OrderPositionsUpsertWithWhereUniqueNestedInput[] | OrderPositionsUpsertWithWhereUniqueNestedInput
 }
 
+export interface NomenclatureCreateOneInput {
+  create?: NomenclatureCreateInput
+  connect?: NomenclatureWhereUniqueInput
+}
+
+export interface NomenclatureSubscriptionWhereInput {
+  AND?: NomenclatureSubscriptionWhereInput[] | NomenclatureSubscriptionWhereInput
+  OR?: NomenclatureSubscriptionWhereInput[] | NomenclatureSubscriptionWhereInput
+  NOT?: NomenclatureSubscriptionWhereInput[] | NomenclatureSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: NomenclatureWhereInput
+}
+
+export interface NomenclatureCreateInput {
+  type?: NomenclatureType
+  name: String
+  description: String
+}
+
+export interface OrderPositionsWhereInput {
+  AND?: OrderPositionsWhereInput[] | OrderPositionsWhereInput
+  OR?: OrderPositionsWhereInput[] | OrderPositionsWhereInput
+  NOT?: OrderPositionsWhereInput[] | OrderPositionsWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
+  updatedAt?: DateTime
+  updatedAt_not?: DateTime
+  updatedAt_in?: DateTime[] | DateTime
+  updatedAt_not_in?: DateTime[] | DateTime
+  updatedAt_lt?: DateTime
+  updatedAt_lte?: DateTime
+  updatedAt_gt?: DateTime
+  updatedAt_gte?: DateTime
+  quantity?: Float
+  quantity_not?: Float
+  quantity_in?: Float[] | Float
+  quantity_not_in?: Float[] | Float
+  quantity_lt?: Float
+  quantity_lte?: Float
+  quantity_gt?: Float
+  quantity_gte?: Float
+  price?: Float
+  price_not?: Float
+  price_in?: Float[] | Float
+  price_not_in?: Float[] | Float
+  price_lt?: Float
+  price_lte?: Float
+  price_gt?: Float
+  price_gte?: Float
+  amount?: Float
+  amount_not?: Float
+  amount_in?: Float[] | Float
+  amount_not_in?: Float[] | Float
+  amount_lt?: Float
+  amount_lte?: Float
+  amount_gt?: Float
+  amount_gte?: Float
+  nomenclature?: NomenclatureWhereInput
+  currency?: CurrencyWhereInput
+}
+
 export interface CurrencyCreateOneInput {
   create?: CurrencyCreateInput
   connect?: CurrencyWhereUniqueInput
 }
 
-export interface ClientSubscriptionWhereInput {
-  AND?: ClientSubscriptionWhereInput[] | ClientSubscriptionWhereInput
-  OR?: ClientSubscriptionWhereInput[] | ClientSubscriptionWhereInput
-  NOT?: ClientSubscriptionWhereInput[] | ClientSubscriptionWhereInput
+export interface ContactDetailSubscriptionWhereInput {
+  AND?: ContactDetailSubscriptionWhereInput[] | ContactDetailSubscriptionWhereInput
+  OR?: ContactDetailSubscriptionWhereInput[] | ContactDetailSubscriptionWhereInput
+  NOT?: ContactDetailSubscriptionWhereInput[] | ContactDetailSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: ClientWhereInput
+  node?: ContactDetailWhereInput
 }
 
-export interface LeadStateUpdateOneInput {
-  create?: LeadStateCreateInput
-  connect?: LeadStateWhereUniqueInput
-  delete?: Boolean
-  update?: LeadStateUpdateDataInput
-  upsert?: LeadStateUpsertNestedInput
+export interface CurrencyCreateInput {
+  code: String
+  name: String
+}
+
+export interface ContactDetailWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface UserUpdateInput {
+  email?: String
+  password?: String
+  name?: String
+}
+
+export interface OrderPositionsUpdateInput {
+  quantity?: Float
+  price?: Float
+  amount?: Float
+  nomenclature?: NomenclatureUpdateOneInput
+  currency?: CurrencyUpdateOneInput
 }
 
 export interface LeadUpdateInput {
@@ -4451,40 +4385,185 @@ export interface LeadUpdateInput {
   contactDetails?: ContactDetailUpdateManyWithoutOwnerInput
 }
 
-export interface UserUpdateInput {
-  email?: String
-  password?: String
+export interface OrderPositionsUpdateDataInput {
+  quantity?: Float
+  price?: Float
+  amount?: Float
+  nomenclature?: NomenclatureUpdateOneInput
+  currency?: CurrencyUpdateOneInput
+}
+
+export interface LeadStateUpdateOneInput {
+  create?: LeadStateCreateInput
+  connect?: LeadStateWhereUniqueInput
+  delete?: Boolean
+  update?: LeadStateUpdateDataInput
+  upsert?: LeadStateUpsertNestedInput
+}
+
+export interface CustomerWhereInput {
+  AND?: CustomerWhereInput[] | CustomerWhereInput
+  OR?: CustomerWhereInput[] | CustomerWhereInput
+  NOT?: CustomerWhereInput[] | CustomerWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
+  updatedAt?: DateTime
+  updatedAt_not?: DateTime
+  updatedAt_in?: DateTime[] | DateTime
+  updatedAt_not_in?: DateTime[] | DateTime
+  updatedAt_lt?: DateTime
+  updatedAt_lte?: DateTime
+  updatedAt_gt?: DateTime
+  updatedAt_gte?: DateTime
   name?: String
+  name_not?: String
+  name_in?: String[] | String
+  name_not_in?: String[] | String
+  name_lt?: String
+  name_lte?: String
+  name_gt?: String
+  name_gte?: String
+  name_contains?: String
+  name_not_contains?: String
+  name_starts_with?: String
+  name_not_starts_with?: String
+  name_ends_with?: String
+  name_not_ends_with?: String
+  manager?: UserWhereInput
+  contactDetails_every?: ContactDetailWhereInput
+  contactDetails_some?: ContactDetailWhereInput
+  contactDetails_none?: ContactDetailWhereInput
 }
 
-export interface CurrencyCreateInput {
-  code: String
-  name: String
+export interface ColorUpsertNestedInput {
+  update: ColorUpdateDataInput
+  create: ColorCreateInput
 }
 
-export interface LeadWhereUniqueInput {
+export interface ColorUpdateDataInput {
+  name?: String
+  hexValue?: String
+}
+
+export interface ColorUpdateOneInput {
+  create?: ColorCreateInput
+  connect?: ColorWhereUniqueInput
+  delete?: Boolean
+  update?: ColorUpdateDataInput
+  upsert?: ColorUpsertNestedInput
+}
+
+export interface LeadStateUpdateDataInput {
+  name?: String
+  color?: ColorUpdateOneInput
+}
+
+export interface CurrencyWhereInput {
+  AND?: CurrencyWhereInput[] | CurrencyWhereInput
+  OR?: CurrencyWhereInput[] | CurrencyWhereInput
+  NOT?: CurrencyWhereInput[] | CurrencyWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
+  updatedAt?: DateTime
+  updatedAt_not?: DateTime
+  updatedAt_in?: DateTime[] | DateTime
+  updatedAt_not_in?: DateTime[] | DateTime
+  updatedAt_lt?: DateTime
+  updatedAt_lte?: DateTime
+  updatedAt_gt?: DateTime
+  updatedAt_gte?: DateTime
+  code?: String
+  code_not?: String
+  code_in?: String[] | String
+  code_not_in?: String[] | String
+  code_lt?: String
+  code_lte?: String
+  code_gt?: String
+  code_gte?: String
+  code_contains?: String
+  code_not_contains?: String
+  code_starts_with?: String
+  code_not_starts_with?: String
+  code_ends_with?: String
+  code_not_ends_with?: String
+  name?: String
+  name_not?: String
+  name_in?: String[] | String
+  name_not_in?: String[] | String
+  name_lt?: String
+  name_lte?: String
+  name_gt?: String
+  name_gte?: String
+  name_contains?: String
+  name_not_contains?: String
+  name_starts_with?: String
+  name_not_starts_with?: String
+  name_ends_with?: String
+  name_not_ends_with?: String
+}
+
+export interface CustomerUpdateDataInput {
+  name?: String
+  manager?: UserUpdateOneInput
+  contactDetails?: ContactDetailUpdateManyInput
+}
+
+export interface CurrencyUpdateOneInput {
+  create?: CurrencyCreateInput
+  connect?: CurrencyWhereUniqueInput
+  delete?: Boolean
+  update?: CurrencyUpdateDataInput
+  upsert?: CurrencyUpsertNestedInput
+}
+
+export interface OrderPositionsWhereUniqueInput {
   id?: ID_Input
 }
 
-export interface OrderPositionsSubscriptionWhereInput {
-  AND?: OrderPositionsSubscriptionWhereInput[] | OrderPositionsSubscriptionWhereInput
-  OR?: OrderPositionsSubscriptionWhereInput[] | OrderPositionsSubscriptionWhereInput
-  NOT?: OrderPositionsSubscriptionWhereInput[] | OrderPositionsSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: OrderPositionsWhereInput
-}
-
-export interface NomenclatureUpdateDataInput {
+export interface NomenclatureUpdateInput {
   type?: NomenclatureType
   name?: String
   description?: String
-}
-
-export interface NomenclatureWhereUniqueInput {
-  id?: ID_Input
 }
 
 /*
@@ -4638,8 +4717,8 @@ export interface UserSubscriptionPayload {
  * An edge in a connection.
 
  */
-export interface ClientEdge {
-  node: Client
+export interface CustomerEdge {
+  node: Customer
   cursor: String
 }
 
@@ -4810,7 +4889,7 @@ export interface User extends Node {
   name: String
 }
 
-export interface AggregateClient {
+export interface AggregateCustomer {
   count: Int
 }
 
@@ -4850,7 +4929,7 @@ export interface Order extends Node {
   id: ID_Output
   createdAt: DateTime
   updatedAt: DateTime
-  client: Client
+  customer: Customer
   manager?: User
   positions?: OrderPositions[]
 }
@@ -4859,11 +4938,11 @@ export interface AggregateLead {
   count: Int
 }
 
-export interface ClientSubscriptionPayload {
+export interface CustomerSubscriptionPayload {
   mutation: MutationType
-  node?: Client
+  node?: Customer
   updatedFields?: String[]
-  previousValues?: ClientPreviousValues
+  previousValues?: CustomerPreviousValues
 }
 
 /*
@@ -4875,7 +4954,7 @@ export interface UserEdge {
   cursor: String
 }
 
-export interface ClientPreviousValues {
+export interface CustomerPreviousValues {
   id: ID_Output
   createdAt: DateTime
   updatedAt: DateTime
@@ -4893,17 +4972,17 @@ export interface ContactDetail extends Node {
   kind: ContactDetailsKind
   value: String
   rawValue: String
-  owner: Lead
+  owner?: Lead
 }
 
 /*
  * A connection to a list of items.
 
  */
-export interface ClientConnection {
+export interface CustomerConnection {
   pageInfo: PageInfo
-  edges: ClientEdge[]
-  aggregate: AggregateClient
+  edges: CustomerEdge[]
+  aggregate: AggregateCustomer
 }
 
 /*
@@ -4922,12 +5001,13 @@ export interface OrderPositionsSubscriptionPayload {
   previousValues?: OrderPositionsPreviousValues
 }
 
-export interface Client extends Node {
+export interface Customer extends Node {
   id: ID_Output
   createdAt: DateTime
   updatedAt: DateTime
   name: String
   manager?: User
+  contactDetails?: ContactDetail[]
 }
 
 export interface OrderPreviousValues {

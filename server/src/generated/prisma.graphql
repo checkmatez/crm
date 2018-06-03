@@ -1,9 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Sat May 26 2018 16:58:26 GMT+0300 (MSK)
-
-type AggregateClient {
-  count: Int!
-}
+# timestamp: Sun Jun 03 2018 14:22:04 GMT+0300 (MSK)
 
 type AggregateColor {
   count: Int!
@@ -14,6 +10,10 @@ type AggregateContactDetail {
 }
 
 type AggregateCurrency {
+  count: Int!
+}
+
+type AggregateCustomer {
   count: Int!
 }
 
@@ -44,263 +44,6 @@ type AggregateUser {
 type BatchPayload {
   """The number of nodes that have been affected by the Batch operation."""
   count: Long!
-}
-
-type Client implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  name: String!
-  manager(where: UserWhereInput): User
-}
-
-"""A connection to a list of items."""
-type ClientConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [ClientEdge]!
-  aggregate: AggregateClient!
-}
-
-input ClientCreateInput {
-  name: String!
-  manager: UserCreateOneInput
-}
-
-input ClientCreateOneInput {
-  create: ClientCreateInput
-  connect: ClientWhereUniqueInput
-}
-
-"""An edge in a connection."""
-type ClientEdge {
-  """The item at the end of the edge."""
-  node: Client!
-
-  """A cursor for use in pagination."""
-  cursor: String!
-}
-
-enum ClientOrderByInput {
-  id_ASC
-  id_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  name_ASC
-  name_DESC
-}
-
-type ClientPreviousValues {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  name: String!
-}
-
-type ClientSubscriptionPayload {
-  mutation: MutationType!
-  node: Client
-  updatedFields: [String!]
-  previousValues: ClientPreviousValues
-}
-
-input ClientSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [ClientSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [ClientSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [ClientSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
-  mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
-  updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
-  updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
-  updatedFields_contains_some: [String!]
-  node: ClientWhereInput
-}
-
-input ClientUpdateDataInput {
-  name: String
-  manager: UserUpdateOneInput
-}
-
-input ClientUpdateInput {
-  name: String
-  manager: UserUpdateOneInput
-}
-
-input ClientUpdateOneInput {
-  create: ClientCreateInput
-  connect: ClientWhereUniqueInput
-  delete: Boolean
-  update: ClientUpdateDataInput
-  upsert: ClientUpsertNestedInput
-}
-
-input ClientUpsertNestedInput {
-  update: ClientUpdateDataInput!
-  create: ClientCreateInput!
-}
-
-input ClientWhereInput {
-  """Logical AND on all given filters."""
-  AND: [ClientWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [ClientWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [ClientWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  createdAt: DateTime
-
-  """All values that are not equal to given value."""
-  createdAt_not: DateTime
-
-  """All values that are contained in given list."""
-  createdAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  createdAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  createdAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  createdAt_lte: DateTime
-
-  """All values greater than the given value."""
-  createdAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  createdAt_gte: DateTime
-  updatedAt: DateTime
-
-  """All values that are not equal to given value."""
-  updatedAt_not: DateTime
-
-  """All values that are contained in given list."""
-  updatedAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  updatedAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  updatedAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  updatedAt_lte: DateTime
-
-  """All values greater than the given value."""
-  updatedAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  updatedAt_gte: DateTime
-  name: String
-
-  """All values that are not equal to given value."""
-  name_not: String
-
-  """All values that are contained in given list."""
-  name_in: [String!]
-
-  """All values that are not contained in given list."""
-  name_not_in: [String!]
-
-  """All values less than the given value."""
-  name_lt: String
-
-  """All values less than or equal the given value."""
-  name_lte: String
-
-  """All values greater than the given value."""
-  name_gt: String
-
-  """All values greater than or equal the given value."""
-  name_gte: String
-
-  """All values containing the given string."""
-  name_contains: String
-
-  """All values not containing the given string."""
-  name_not_contains: String
-
-  """All values starting with the given string."""
-  name_starts_with: String
-
-  """All values not starting with the given string."""
-  name_not_starts_with: String
-
-  """All values ending with the given string."""
-  name_ends_with: String
-
-  """All values not ending with the given string."""
-  name_not_ends_with: String
-  manager: UserWhereInput
-}
-
-input ClientWhereUniqueInput {
-  id: ID
 }
 
 type Color implements Node {
@@ -561,7 +304,7 @@ type ContactDetail implements Node {
   kind: ContactDetailsKind!
   value: String!
   rawValue: String!
-  owner(where: LeadWhereInput): Lead!
+  owner(where: LeadWhereInput): Lead
 }
 
 """A connection to a list of items."""
@@ -578,7 +321,12 @@ input ContactDetailCreateInput {
   kind: ContactDetailsKind!
   value: String!
   rawValue: String!
-  owner: LeadCreateOneWithoutContactDetailsInput!
+  owner: LeadCreateOneWithoutContactDetailsInput
+}
+
+input ContactDetailCreateManyInput {
+  create: [ContactDetailCreateInput!]
+  connect: [ContactDetailWhereUniqueInput!]
 }
 
 input ContactDetailCreateManyWithoutOwnerInput {
@@ -670,11 +418,27 @@ input ContactDetailSubscriptionWhereInput {
   node: ContactDetailWhereInput
 }
 
+input ContactDetailUpdateDataInput {
+  kind: ContactDetailsKind
+  value: String
+  rawValue: String
+  owner: LeadUpdateOneWithoutContactDetailsInput
+}
+
 input ContactDetailUpdateInput {
   kind: ContactDetailsKind
   value: String
   rawValue: String
   owner: LeadUpdateOneWithoutContactDetailsInput
+}
+
+input ContactDetailUpdateManyInput {
+  create: [ContactDetailCreateInput!]
+  connect: [ContactDetailWhereUniqueInput!]
+  disconnect: [ContactDetailWhereUniqueInput!]
+  delete: [ContactDetailWhereUniqueInput!]
+  update: [ContactDetailUpdateWithWhereUniqueNestedInput!]
+  upsert: [ContactDetailUpsertWithWhereUniqueNestedInput!]
 }
 
 input ContactDetailUpdateManyWithoutOwnerInput {
@@ -692,9 +456,20 @@ input ContactDetailUpdateWithoutOwnerDataInput {
   rawValue: String
 }
 
+input ContactDetailUpdateWithWhereUniqueNestedInput {
+  where: ContactDetailWhereUniqueInput!
+  data: ContactDetailUpdateDataInput!
+}
+
 input ContactDetailUpdateWithWhereUniqueWithoutOwnerInput {
   where: ContactDetailWhereUniqueInput!
   data: ContactDetailUpdateWithoutOwnerDataInput!
+}
+
+input ContactDetailUpsertWithWhereUniqueNestedInput {
+  where: ContactDetailWhereUniqueInput!
+  update: ContactDetailUpdateDataInput!
+  create: ContactDetailCreateInput!
 }
 
 input ContactDetailUpsertWithWhereUniqueWithoutOwnerInput {
@@ -1192,6 +967,270 @@ input CurrencyWhereUniqueInput {
   id: ID
 }
 
+type Customer implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  manager(where: UserWhereInput): User
+  contactDetails(where: ContactDetailWhereInput, orderBy: ContactDetailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ContactDetail!]
+}
+
+"""A connection to a list of items."""
+type CustomerConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [CustomerEdge]!
+  aggregate: AggregateCustomer!
+}
+
+input CustomerCreateInput {
+  name: String!
+  manager: UserCreateOneInput
+  contactDetails: ContactDetailCreateManyInput
+}
+
+input CustomerCreateOneInput {
+  create: CustomerCreateInput
+  connect: CustomerWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type CustomerEdge {
+  """The item at the end of the edge."""
+  node: Customer!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum CustomerOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  name_ASC
+  name_DESC
+}
+
+type CustomerPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+}
+
+type CustomerSubscriptionPayload {
+  mutation: MutationType!
+  node: Customer
+  updatedFields: [String!]
+  previousValues: CustomerPreviousValues
+}
+
+input CustomerSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CustomerSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CustomerSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CustomerSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: CustomerWhereInput
+}
+
+input CustomerUpdateDataInput {
+  name: String
+  manager: UserUpdateOneInput
+  contactDetails: ContactDetailUpdateManyInput
+}
+
+input CustomerUpdateInput {
+  name: String
+  manager: UserUpdateOneInput
+  contactDetails: ContactDetailUpdateManyInput
+}
+
+input CustomerUpdateOneInput {
+  create: CustomerCreateInput
+  connect: CustomerWhereUniqueInput
+  delete: Boolean
+  update: CustomerUpdateDataInput
+  upsert: CustomerUpsertNestedInput
+}
+
+input CustomerUpsertNestedInput {
+  update: CustomerUpdateDataInput!
+  create: CustomerCreateInput!
+}
+
+input CustomerWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CustomerWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CustomerWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CustomerWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  manager: UserWhereInput
+  contactDetails_every: ContactDetailWhereInput
+  contactDetails_some: ContactDetailWhereInput
+  contactDetails_none: ContactDetailWhereInput
+}
+
+input CustomerWhereUniqueInput {
+  id: ID
+}
+
 scalar DateTime
 
 type Lead implements Node {
@@ -1572,6 +1611,7 @@ input LeadUpdateInput {
 input LeadUpdateOneWithoutContactDetailsInput {
   create: LeadCreateWithoutContactDetailsInput
   connect: LeadWhereUniqueInput
+  disconnect: Boolean
   delete: Boolean
   update: LeadUpdateWithoutContactDetailsDataInput
   upsert: LeadUpsertWithoutContactDetailsInput
@@ -1785,7 +1825,7 @@ type Mutation {
   createLeadState(data: LeadStateCreateInput!): LeadState!
   createContactDetail(data: ContactDetailCreateInput!): ContactDetail!
   createColor(data: ColorCreateInput!): Color!
-  createClient(data: ClientCreateInput!): Client!
+  createCustomer(data: CustomerCreateInput!): Customer!
   createOrder(data: OrderCreateInput!): Order!
   createOrderPositions(data: OrderPositionsCreateInput!): OrderPositions!
   createCurrency(data: CurrencyCreateInput!): Currency!
@@ -1795,7 +1835,7 @@ type Mutation {
   updateLeadState(data: LeadStateUpdateInput!, where: LeadStateWhereUniqueInput!): LeadState
   updateContactDetail(data: ContactDetailUpdateInput!, where: ContactDetailWhereUniqueInput!): ContactDetail
   updateColor(data: ColorUpdateInput!, where: ColorWhereUniqueInput!): Color
-  updateClient(data: ClientUpdateInput!, where: ClientWhereUniqueInput!): Client
+  updateCustomer(data: CustomerUpdateInput!, where: CustomerWhereUniqueInput!): Customer
   updateOrder(data: OrderUpdateInput!, where: OrderWhereUniqueInput!): Order
   updateOrderPositions(data: OrderPositionsUpdateInput!, where: OrderPositionsWhereUniqueInput!): OrderPositions
   updateCurrency(data: CurrencyUpdateInput!, where: CurrencyWhereUniqueInput!): Currency
@@ -1805,7 +1845,7 @@ type Mutation {
   deleteLeadState(where: LeadStateWhereUniqueInput!): LeadState
   deleteContactDetail(where: ContactDetailWhereUniqueInput!): ContactDetail
   deleteColor(where: ColorWhereUniqueInput!): Color
-  deleteClient(where: ClientWhereUniqueInput!): Client
+  deleteCustomer(where: CustomerWhereUniqueInput!): Customer
   deleteOrder(where: OrderWhereUniqueInput!): Order
   deleteOrderPositions(where: OrderPositionsWhereUniqueInput!): OrderPositions
   deleteCurrency(where: CurrencyWhereUniqueInput!): Currency
@@ -1815,7 +1855,7 @@ type Mutation {
   upsertLeadState(where: LeadStateWhereUniqueInput!, create: LeadStateCreateInput!, update: LeadStateUpdateInput!): LeadState!
   upsertContactDetail(where: ContactDetailWhereUniqueInput!, create: ContactDetailCreateInput!, update: ContactDetailUpdateInput!): ContactDetail!
   upsertColor(where: ColorWhereUniqueInput!, create: ColorCreateInput!, update: ColorUpdateInput!): Color!
-  upsertClient(where: ClientWhereUniqueInput!, create: ClientCreateInput!, update: ClientUpdateInput!): Client!
+  upsertCustomer(where: CustomerWhereUniqueInput!, create: CustomerCreateInput!, update: CustomerUpdateInput!): Customer!
   upsertOrder(where: OrderWhereUniqueInput!, create: OrderCreateInput!, update: OrderUpdateInput!): Order!
   upsertOrderPositions(where: OrderPositionsWhereUniqueInput!, create: OrderPositionsCreateInput!, update: OrderPositionsUpdateInput!): OrderPositions!
   upsertCurrency(where: CurrencyWhereUniqueInput!, create: CurrencyCreateInput!, update: CurrencyUpdateInput!): Currency!
@@ -1825,7 +1865,7 @@ type Mutation {
   updateManyLeadStates(data: LeadStateUpdateInput!, where: LeadStateWhereInput): BatchPayload!
   updateManyContactDetails(data: ContactDetailUpdateInput!, where: ContactDetailWhereInput): BatchPayload!
   updateManyColors(data: ColorUpdateInput!, where: ColorWhereInput): BatchPayload!
-  updateManyClients(data: ClientUpdateInput!, where: ClientWhereInput): BatchPayload!
+  updateManyCustomers(data: CustomerUpdateInput!, where: CustomerWhereInput): BatchPayload!
   updateManyOrders(data: OrderUpdateInput!, where: OrderWhereInput): BatchPayload!
   updateManyOrderPositionses(data: OrderPositionsUpdateInput!, where: OrderPositionsWhereInput): BatchPayload!
   updateManyCurrencies(data: CurrencyUpdateInput!, where: CurrencyWhereInput): BatchPayload!
@@ -1835,7 +1875,7 @@ type Mutation {
   deleteManyLeadStates(where: LeadStateWhereInput): BatchPayload!
   deleteManyContactDetails(where: ContactDetailWhereInput): BatchPayload!
   deleteManyColors(where: ColorWhereInput): BatchPayload!
-  deleteManyClients(where: ClientWhereInput): BatchPayload!
+  deleteManyCustomers(where: CustomerWhereInput): BatchPayload!
   deleteManyOrders(where: OrderWhereInput): BatchPayload!
   deleteManyOrderPositionses(where: OrderPositionsWhereInput): BatchPayload!
   deleteManyCurrencies(where: CurrencyWhereInput): BatchPayload!
@@ -2179,7 +2219,7 @@ type Order implements Node {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
-  client(where: ClientWhereInput): Client!
+  customer(where: CustomerWhereInput): Customer!
   manager(where: UserWhereInput): User
   positions(where: OrderPositionsWhereInput, orderBy: OrderPositionsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [OrderPositions!]
 }
@@ -2195,7 +2235,7 @@ type OrderConnection {
 }
 
 input OrderCreateInput {
-  client: ClientCreateOneInput!
+  customer: CustomerCreateOneInput!
   manager: UserCreateOneInput
   positions: OrderPositionsCreateManyInput
 }
@@ -2573,7 +2613,7 @@ input OrderSubscriptionWhereInput {
 }
 
 input OrderUpdateInput {
-  client: ClientUpdateOneInput
+  customer: CustomerUpdateOneInput
   manager: UserUpdateOneInput
   positions: OrderPositionsUpdateManyInput
 }
@@ -2671,7 +2711,7 @@ input OrderWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
-  client: ClientWhereInput
+  customer: CustomerWhereInput
   manager: UserWhereInput
   positions_every: OrderPositionsWhereInput
   positions_some: OrderPositionsWhereInput
@@ -2703,7 +2743,7 @@ type Query {
   leadStates(where: LeadStateWhereInput, orderBy: LeadStateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [LeadState]!
   contactDetails(where: ContactDetailWhereInput, orderBy: ContactDetailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ContactDetail]!
   colors(where: ColorWhereInput, orderBy: ColorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Color]!
-  clients(where: ClientWhereInput, orderBy: ClientOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Client]!
+  customers(where: CustomerWhereInput, orderBy: CustomerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Customer]!
   orders(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Order]!
   orderPositionses(where: OrderPositionsWhereInput, orderBy: OrderPositionsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [OrderPositions]!
   currencies(where: CurrencyWhereInput, orderBy: CurrencyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Currency]!
@@ -2713,7 +2753,7 @@ type Query {
   leadState(where: LeadStateWhereUniqueInput!): LeadState
   contactDetail(where: ContactDetailWhereUniqueInput!): ContactDetail
   color(where: ColorWhereUniqueInput!): Color
-  client(where: ClientWhereUniqueInput!): Client
+  customer(where: CustomerWhereUniqueInput!): Customer
   order(where: OrderWhereUniqueInput!): Order
   orderPositions(where: OrderPositionsWhereUniqueInput!): OrderPositions
   currency(where: CurrencyWhereUniqueInput!): Currency
@@ -2723,7 +2763,7 @@ type Query {
   leadStatesConnection(where: LeadStateWhereInput, orderBy: LeadStateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LeadStateConnection!
   contactDetailsConnection(where: ContactDetailWhereInput, orderBy: ContactDetailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ContactDetailConnection!
   colorsConnection(where: ColorWhereInput, orderBy: ColorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ColorConnection!
-  clientsConnection(where: ClientWhereInput, orderBy: ClientOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ClientConnection!
+  customersConnection(where: CustomerWhereInput, orderBy: CustomerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CustomerConnection!
   ordersConnection(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OrderConnection!
   orderPositionsesConnection(where: OrderPositionsWhereInput, orderBy: OrderPositionsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OrderPositionsConnection!
   currenciesConnection(where: CurrencyWhereInput, orderBy: CurrencyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CurrencyConnection!
@@ -2742,7 +2782,7 @@ type Subscription {
   leadState(where: LeadStateSubscriptionWhereInput): LeadStateSubscriptionPayload
   contactDetail(where: ContactDetailSubscriptionWhereInput): ContactDetailSubscriptionPayload
   color(where: ColorSubscriptionWhereInput): ColorSubscriptionPayload
-  client(where: ClientSubscriptionWhereInput): ClientSubscriptionPayload
+  customer(where: CustomerSubscriptionWhereInput): CustomerSubscriptionPayload
   order(where: OrderSubscriptionWhereInput): OrderSubscriptionPayload
   orderPositions(where: OrderPositionsSubscriptionWhereInput): OrderPositionsSubscriptionPayload
   currency(where: CurrencySubscriptionWhereInput): CurrencySubscriptionPayload
@@ -2771,7 +2811,7 @@ type UserConnection {
 input UserCreateInput {
   email: String!
   password: String!
-  name: String!
+  name: String
 }
 
 input UserCreateOneInput {
