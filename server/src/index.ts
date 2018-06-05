@@ -9,7 +9,7 @@ debugApi('starting server...')
 
 const server = new GraphQLServer({
   resolvers,
-  typeDefs: './src/schema.graphql',
+  typeDefs: './src/schema/_root.graphql',
   context: req => ({
     ...req,
     db: new Prisma({

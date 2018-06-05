@@ -11,6 +11,7 @@ import posed from 'react-pose'
 
 import { LOGIN_MUTATION } from '../../mutations/login'
 import { ACCESS_TOKEN_KEY } from '../../config/constants'
+import { makeFormSubmitHandler } from '../../utils'
 import FormTextField from '../FormTextField'
 
 const animationConfig = {
@@ -39,23 +40,6 @@ const validate = values => {
     errors.password = 'Обязательное поле'
   }
   return errors
-}
-
-const makeFormSubmitHandler = mutation => async values => {
-  try {
-    await mutation({ variables: values })
-  } catch (error) {
-    if (error.graphQLErrors.length && error.graphQLErrors[0].errors) {
-      return error.graphQLErrors[0].errors
-    }
-    if (error.graphQLErrors.length && error.graphQLErrors[0].message) {
-      return { [FORM_ERROR]: error.graphQLErrors[0].message }
-    }
-    if (error.message) {
-      return { [FORM_ERROR]: error.message }
-    }
-  }
-  return undefined
 }
 
 class LoginForm extends Component {

@@ -1,7 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import Toolbar from '@material-ui/core/Toolbar'
 import { lighten } from '@material-ui/core/styles/colorManipulator'
+import Button from '@material-ui/core/Button'
+import AddIcon from '@material-ui/icons/Add'
 import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -45,6 +48,8 @@ class TableHeaderToolbar extends Component {
 
   static defaultProps = {}
 
+  handleAddClick = () => {}
+
   render() {
     const { numSelected } = this.props
     return (
@@ -69,11 +74,23 @@ class TableHeaderToolbar extends Component {
               </IconButton>
             </Tooltip>
           ) : (
-            <Tooltip title="Filter list">
-              <IconButton aria-label="Filter list">
-                <FilterListIcon />
-              </IconButton>
-            </Tooltip>
+            <Fragment>
+              <Tooltip title="Filter list">
+                <IconButton aria-label="Filter list">
+                  <FilterListIcon />
+                </IconButton>
+              </Tooltip>
+              <Button
+                component={Link}
+                to="/customer/new"
+                variant="fab"
+                color="primary"
+                aria-label="add"
+                onClick={this.handleAddClick}
+              >
+                <AddIcon />
+              </Button>
+            </Fragment>
           )}
         </ActionsDiv>
       </StyledToolbar>

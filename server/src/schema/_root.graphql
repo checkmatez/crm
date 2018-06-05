@@ -1,5 +1,6 @@
-# import CustomerOrderByInput from "./generated/prisma.graphql"
-# import CustomerConnection from "./generated/prisma.graphql"
+# import CustomerOrderByInput from "../generated/prisma.graphql"
+# import CustomerConnection from "../generated/prisma.graphql"
+# import CreateCustomerInput from "./inputs.graphql"
 
 type Query {
   me: User
@@ -15,7 +16,10 @@ type Query {
 
 type Mutation {
   signup(email: String!, password: String!, name: String!): AuthPayload!
+
   login(email: String!, password: String!): AuthPayload!
+
+  createCustomer(data: CreateCustomerInput!): Customer!
 }
 
 type AuthPayload {

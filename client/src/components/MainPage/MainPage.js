@@ -17,6 +17,7 @@ import styled, { css } from 'styled-components'
 
 import ContactList from '../ContactList'
 import CustomerDetails from '../CustomerDetails'
+import CustomerEdit from '../CustomerEdit'
 
 const Root = styled.div`
   flex: 1;
@@ -26,13 +27,6 @@ const Root = styled.div`
   display: flex;
 `
 
-const MyToolbar = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 0 8px;
-`
-
 const StyledAppBar = styled(AppBar).attrs({
   position: 'absolute',
 })`
@@ -40,15 +34,6 @@ const StyledAppBar = styled(AppBar).attrs({
     z-index: ${p => p.theme.zIndex.drawer + 1};
     left: ${p => p.theme.spacing.unit * 7}px;
   }
-`
-
-const StyledIconButton = styled(IconButton).attrs({
-  color: 'inherit',
-  'aria-label': 'open drawer',
-})`
-  margin-left: 12;
-  margin-right: 36;
-  display: ${p => (p.open ? 'none' : 'block')};
 `
 
 const paperCss = css`
@@ -116,8 +101,11 @@ class MainPage extends React.Component {
           </Toolbar>
         </StyledAppBar>
         <MainContent>
-          <Route exact path="/customers" component={ContactList} />
-          <Route exact path="/customer/:id" component={CustomerDetails} />
+          <Switch>
+            <Route exact path="/customers" component={ContactList} />
+            <Route exact path="/customer/new" component={CustomerEdit} />
+            <Route exact path="/customer/:id" component={CustomerDetails} />
+          </Switch>
         </MainContent>
       </Root>
     )

@@ -13,6 +13,7 @@ import posed from 'react-pose'
 
 import { SIGNUP_MUTATION } from '../../mutations/signup'
 import { ACCESS_TOKEN_KEY } from '../../config/constants'
+import { makeFormSubmitHandler } from '../../utils'
 import FormTextField from '../FormTextField'
 
 const animationConfig = {
@@ -57,20 +58,6 @@ const validate = values => {
     errors.password = 'Пароль должен содержать минимум 6 символов'
   }
   return errors
-}
-
-const makeFormSubmitHandler = mutation => async values => {
-  try {
-    await mutation({ variables: values })
-  } catch (error) {
-    if (error.graphQLErrors.length && error.graphQLErrors[0].errors) {
-      return error.graphQLErrors[0].errors
-    }
-    if (error.message) {
-      return { [FORM_ERROR]: error.message }
-    }
-  }
-  return undefined
 }
 
 class SignupForm extends Component {
