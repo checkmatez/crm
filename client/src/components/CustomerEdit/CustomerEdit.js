@@ -8,6 +8,8 @@ import { FieldArray } from 'react-final-form-arrays'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+import AddCircleOutline from '@material-ui/icons/AddCircleOutline'
 import styled from 'styled-components'
 import setFieldData from 'final-form-set-field-data'
 import createDecorator from 'final-form-focus'
@@ -39,18 +41,24 @@ const validate = values => {
   return errors
 }
 
+const ContactFieldContainer = styled.div`
+  && {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+  }
+`
+
 const makeSubmitHandler = mutation => async (
-  { name, manager, email, emails, phone, phones },
+  { manager, ...rest },
   { getFieldState }
 ) => {
   try {
     await mutation({
       variables: {
         data: {
-          name,
           managerId: getFieldState('manager').data.id,
-          emails: [email, ...emails],
-          phones: [phone, ...phones],
+          ...rest,
         },
       },
     })
@@ -119,69 +127,66 @@ class CustomerEdit extends Component {
           margin="normal"
           setFieldId={id => mutators.setFieldData('manager', { id })}
         />
-        <Field
-          name="email"
-          component={FormTextField}
-          label="Email"
-          placeholder="abc@abc.ru"
-          margin="normal"
-          type="email"
-          autoComplete="new-password"
-        />
         <FieldArray name="emails">
           {({ fields }) => (
             <Fragment>
-              {fields.map((name, index) => (
-                <Field
-                  key={name}
-                  name={name}
-                  type="email"
-                  label="Email"
-                  placeholder="abc@abc.ru"
-                  autoComplete="new-password"
-                  margin="normal"
-                  component={FormTextField}
-                />
-              ))}
-              <Button
-                variant="raised"
-                color="secondary"
-                onClick={() => fields.push('')}
-              >
-                Добавить Email
-              </Button>
+              {fields.map((name, index) => {
+                const field = (
+                  <Field
+                    key={name}
+                    name={name}
+                    type="email"
+                    label="Email"
+                    placeholder="abc@abc.ru"
+                    autoComplete="new-password"
+                    margin="normal"
+                    fullWidth
+                    component={FormTextField}
+                  />
+                )
+                if (index === fields.length - 1) {
+                  return (
+                    <ContactFieldContainer>
+                      <IconButton onClick={() => fields.push('')}>
+                        <AddCircleOutline />
+                      </IconButton>
+                      {field}
+                    </ContactFieldContainer>
+                  )
+                }
+                return field
+              })}
             </Fragment>
           )}
         </FieldArray>
-        <Field
-          name="phone"
-          type="phone"
-          label="Телефон"
-          placeholder="+792587454555"
-          margin="normal"
-          component={FormTextField}
-        />
         <FieldArray name="phones">
           {({ fields }) => (
             <Fragment>
-              {fields.map((name, index) => (
-                <Field
-                  key={name}
-                  name={name}
-                  type="phone"
-                  label="Телефон"
-                  placeholder="+792587454555"
-                  margin="normal"
-                  component={FormTextField}
-                />
-              ))}
-              <Button
-                variant="raised"
-                color="secondary"
-                onClick={() => fields.push('')}
-              >
-                Добавить телефон
-              </Button>
+              {fields.map((name, index) => {
+                const field = (
+                  <Field
+                    key={name}
+                    name={name}
+                    type="phone"
+                    label="Телефон"
+                    placeholder="+792587454555"
+                    margin="normal"
+                    fullWidth
+                    component={FormTextField}
+                  />
+                )
+                if (index === fields.length - 1) {
+                  return (
+                    <ContactFieldContainer>
+                      <IconButton onClick={() => fields.push('')}>
+                        <AddCircleOutline />
+                      </IconButton>
+                      {field}
+                    </ContactFieldContainer>
+                  )
+                }
+                return field
+              })}
             </Fragment>
           )}
         </FieldArray>
@@ -194,7 +199,7 @@ class CustomerEdit extends Component {
           type="submit"
           disabled={submitting || pristine}
         >
-          Создать
+          Добавить
         </Button>
       </StyledForm>
     </PaperStyled>
@@ -206,10 +211,8 @@ class CustomerEdit extends Component {
       initialValues={{
         name: '',
         manager: null,
-        email: '',
-        phone: '',
-        emails: [],
-        phones: [],
+        emails: [''],
+        phones: [''],
       }}
       decorators={[focusOnErrors]}
       mutators={{

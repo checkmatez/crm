@@ -18,11 +18,13 @@ const animationConfig = {
   visible: { opacity: 1, x: '0%' },
   hidden: { opacity: 0, x: '100%' },
 }
+
 const PosedWrapper = styled(posed.div(animationConfig))`
   position: absolute;
 `
 
 const PaperStyled = styled(Paper)`
+  width: 320px;
   padding: 20px;
 `
 
@@ -30,6 +32,18 @@ const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
 `
+
+const StyledButton = styled(Button)`
+  && {
+    margin-top: ${p => p.theme.spacing.unit}px;
+  }
+`
+
+const FormError = styled(Typography).attrs({
+  variant: 'body1',
+  color: 'error',
+  gutterBottom: true,
+})``
 
 const validate = values => {
   const errors = {}
@@ -52,7 +66,13 @@ class LoginForm extends Component {
     this.props.history.push('/')
   }
 
-  renderForm = ({ handleSubmit, submitting, pristine, submitError }) => (
+  renderForm = ({
+    handleSubmit,
+    submitting,
+    pristine,
+    submitError,
+    dirtySinceLastSubmit,
+  }) => (
     <PosedWrapper pose={this.props.match ? 'visible' : 'hidden'}>
       <PaperStyled>
         <StyledForm onSubmit={handleSubmit} noValidate autoComplete="off">
@@ -76,25 +96,23 @@ class LoginForm extends Component {
             margin="normal"
             component={FormTextField}
           />
-          <Typography variant="headline" gutterBottom>
-            {submitError}
-          </Typography>
-          <Button
+          {!dirtySinceLastSubmit && <FormError>{submitError}</FormError>}
+          <StyledButton
             variant="raised"
             color="primary"
             type="submit"
             disabled={submitting || pristine}
           >
             Войти
-          </Button>
-          <Button
+          </StyledButton>
+          <StyledButton
             component={Link}
             to="/registration"
             size="small"
             disableRipple
           >
             Нет аккаунта? Зарегистрироваться
-          </Button>
+          </StyledButton>
         </StyledForm>
       </PaperStyled>
     </PosedWrapper>

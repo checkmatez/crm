@@ -1,4 +1,5 @@
 import { FORM_ERROR } from 'final-form'
+import createDecorator from 'final-form-focus'
 
 export const makeFormSubmitHandler = mutation => async values => {
   try {
@@ -16,3 +17,5 @@ export const makeFormSubmitHandler = mutation => async values => {
   }
   return undefined
 }
+
+export const focusFirstErrorDecorator = createDecorator()

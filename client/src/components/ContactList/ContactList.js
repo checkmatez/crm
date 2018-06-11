@@ -10,6 +10,7 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import Checkbox from '@material-ui/core/Checkbox'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import Typography from '@material-ui/core/Typography'
 import styled from 'styled-components'
 import format from 'date-fns/format'
 import Button from '@material-ui/core/Button'
@@ -77,16 +78,46 @@ class ContactList extends Component {
 
   isSelected = id => this.state.selected.indexOf(id) !== -1
 
+  renderTableBody = customers =>
+    customers.edges.map(({ node: customer }) => {
+      const isSelected = this.isSelected(customer.id)
+      const emailRow = customer.contactDetails.find(cd => cd.kind === 'EMAIL')
+      return (
+        <TableRow
+          key={customer.id}
+          hover
+          role="checkbox"
+          aria-checked={isSelected}
+          selected={isSelected}
+          tabIndex={-1}
+          onClick={event => this.handleClick(event, customer.id)}
+        >
+          <TableCell padding="dense">
+            <Checkbox checked={isSelected} />
+          </TableCell>
+          <TableCell component="th" scope="row" padding="none">
+            <Typography
+              component={Link}
+              variant="body1"
+              to={`/customer/${customer.id}`}
+            >
+              {customer.name}
+            </Typography>
+          </TableCell>
+          <TableCell>
+            {format(customer.createdAt, 'DD.MM.YYYY HH:mm')}
+          </TableCell>
+          <TableCell>
+            {format(customer.updatedAt, 'DD.MM.YYYY HH:mm')}
+          </TableCell>
+          <TableCell>{customer.manager ? customer.manager.name : ''}</TableCell>
+          <TableCell>{emailRow ? emailRow.value : ''}</TableCell>
+        </TableRow>
+      )
+    })
+
   renderWithData = ({ data, loading, error }) => {
     const { order, orderBy, selected } = this.state
-    if (loading) {
-      return <CircularProgress />
-    }
-    const {
-      aggregate: { count },
-      pageInfo: { hasNextPage },
-      edges,
-    } = data.customers
     return (
       <Paper>
         <TableHeaderToolbar numSelected={selected.length} />
@@ -100,50 +131,11 @@ class ContactList extends Component {
                 this.handleSelectAllClick(data, ...args)
               }
               onRequestSort={this.handleRequestSort}
-              rowCount={edges.length}
+              rowCount={loading ? 0 : data.customers.edges.length}
             />
             <TableBody>
-              {edges.map(({ node: customer }) => {
-                const isSelected = this.isSelected(customer.id)
-                const emailRow = customer.contactDetails.find(
-                  cd => cd.kind === 'EMAIL'
-                )
-                return (
-                  <TableRow
-                    key={customer.id}
-                    hover
-                    role="checkbox"
-                    aria-checked={isSelected}
-                    selected={isSelected}
-                    tabIndex={-1}
-                    onClick={event => this.handleClick(event, customer.id)}
-                  >
-                    <TableCell padding="dense">
-                      <Checkbox checked={isSelected} />
-                    </TableCell>
-                    <TableCell component="th" scope="row" padding="none">
-                      <Button
-                        component={Link}
-                        to={`/customer/${customer.id}`}
-                        size="small"
-                        disableRipple
-                      >
-                        {customer.name}
-                      </Button>
-                    </TableCell>
-                    <TableCell>
-                      {format(customer.createdAt, 'DD.MM.YYYY HH:mm')}
-                    </TableCell>
-                    <TableCell>
-                      {format(customer.updatedAt, 'DD.MM.YYYY HH:mm')}
-                    </TableCell>
-                    <TableCell>
-                      {customer.manager ? customer.manager.name : ''}
-                    </TableCell>
-                    <TableCell>{emailRow ? emailRow.value : ''}</TableCell>
-                  </TableRow>
-                )
-              })}
+              {loading && <CircularProgress />}
+              {!loading && this.renderTableBody(data.customers)}
             </TableBody>
           </StyledTable>
         </TableWrapper>

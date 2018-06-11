@@ -18,6 +18,8 @@ type Query {
   ): CustomerConnection!
 
   searchUser(search: String!): [User!]!
+
+  userWithEmailExists(email: String!): Boolean!
 }
 
 type Mutation {
