@@ -1,4 +1,5 @@
 import * as debug from 'debug'
+import * as validator from 'validator'
 
 import { IContext } from '../../utils'
 
@@ -12,15 +13,18 @@ export const createCustomer = async (
 ) => {
   const emailContactDetails = emails.map(value => ({
     kind: 'EMAIL',
-    value,
+    value: validator.normalizeEmail(value),
     rawValue: value,
   }))
 
-  const phoneContactDetails = phones.map(value => ({
-    kind: 'PHONE',
-    value,
-    rawValue: value,
-  }))
+  const phoneContactDetails = phones.map(value => {
+    const phoneNumber = value.replace(/\D+/g, '').replace(/^8/, '7')
+    return {
+      kind: 'PHONE',
+      value: phoneNumber,
+      rawValue: value,
+    }
+  })
 
   const customer = await db.mutation.createCustomer(
     {

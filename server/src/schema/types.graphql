@@ -1,0 +1,26 @@
+type User {
+  id: ID!
+  email: String!
+  name: String!
+}
+
+type Customer {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  # --------------------
+  name: String!
+  manager: User
+  note: String!
+  contactDetails: [ContactDetail!]!
+}
+
+type ContactDetail {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  # --------------------
+  kind: ContactDetailsKind!
+  value: String!
+  rawValue: String!
+}

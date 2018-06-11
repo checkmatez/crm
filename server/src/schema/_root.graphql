@@ -1,6 +1,10 @@
 # import CustomerOrderByInput from "../generated/prisma.graphql"
 # import CustomerConnection from "../generated/prisma.graphql"
-# import CreateCustomerInput from "./inputs.graphql"
+
+# import * from "enums.graphql"
+# import * from "inputs.graphql"
+# import * from "payloads.graphql"
+# import * from "types.graphql"
 
 type Query {
   me: User
@@ -12,6 +16,8 @@ type Query {
     skip: Int!
     orderBy: CustomerOrderByInput
   ): CustomerConnection!
+
+  searchUser(search: String!): [User!]!
 }
 
 type Mutation {
@@ -20,35 +26,4 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload!
 
   createCustomer(data: CreateCustomerInput!): Customer!
-}
-
-type AuthPayload {
-  accessToken: String!
-  user: User!
-}
-
-type User {
-  id: ID!
-  email: String!
-  name: String!
-}
-
-type Customer {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  # --------------------
-  name: String!
-  manager: User
-  contactDetails: [ContactDetail!]!
-}
-
-type ContactDetail {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  # --------------------
-  kind: ContactDetailsKind!
-  value: String!
-  rawValue: String!
 }

@@ -55,6 +55,7 @@ type Customer {
   # --------------------
   name: String!
   manager: User
+  note: String!
   contactDetails: [ContactDetail!]!
     @relation(name: "CustomerContactDetails", onDelete: CASCADE)
 }

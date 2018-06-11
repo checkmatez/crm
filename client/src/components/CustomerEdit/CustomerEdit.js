@@ -1,20 +1,29 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Mutation } from 'react-apollo'
 import { Link } from 'react-router-dom'
+import { FORM_ERROR } from 'final-form'
 import { Form as FinalForm, Field } from 'react-final-form'
+import arrayMutators from 'final-form-arrays'
+import { FieldArray } from 'react-final-form-arrays'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import styled from 'styled-components'
+import setFieldData from 'final-form-set-field-data'
+import createDecorator from 'final-form-focus'
 import posed from 'react-pose'
 
 import { CREATE_CUSTOMER_MUTATION } from '../../mutations/createCustomer'
 import { CUSTOMERS_QUERY } from '../../queries/customers'
 import { makeFormSubmitHandler } from '../../utils'
 import FormTextField from '../FormTextField'
+import DownshiftAutocomplete from '../DownshiftAutocomplete'
+
+const focusOnErrors = createDecorator()
 
 const PaperStyled = styled(Paper)`
   padding: 20px;
+  max-width: 500px;
 `
 
 const StyledForm = styled.form`
@@ -30,21 +39,32 @@ const validate = values => {
   return errors
 }
 
-const makeSubmitHandler = mutation => async ({ phone, email, ...rest }) => {
+const makeSubmitHandler = mutation => async (
+  { name, manager, email, emails, phone, phones },
+  { getFieldState }
+) => {
   try {
     await mutation({
-      variables: { data: { ...rest, phones: [phone], emails: [email] } },
+      variables: {
+        data: {
+          name,
+          managerId: getFieldState('manager').data.id,
+          emails: [email, ...emails],
+          phones: [phone, ...phones],
+        },
+      },
     })
   } catch (error) {
+    console.log(error)
     if (error.graphQLErrors.length && error.graphQLErrors[0].errors) {
       return error.graphQLErrors[0].errors
     }
-    // if (error.graphQLErrors.length && error.graphQLErrors[0].message) {
-    //   return { [FORM_ERROR]: error.graphQLErrors[0].message }
-    // }
-    // if (error.message) {
-    //   return { [FORM_ERROR]: error.message }
-    // }
+    if (error.graphQLErrors.length && error.graphQLErrors[0].message) {
+      return { [FORM_ERROR]: error.graphQLErrors[0].message }
+    }
+    if (error.message) {
+      return { [FORM_ERROR]: error.message }
+    }
   }
   return undefined
 }
@@ -71,7 +91,13 @@ class CustomerEdit extends Component {
     })
   }
 
-  renderForm = ({ handleSubmit, submitting, pristine, submitError }) => (
+  renderForm = ({
+    handleSubmit,
+    submitting,
+    pristine,
+    submitError,
+    form: { mutators },
+  }) => (
     <PaperStyled>
       <StyledForm onSubmit={handleSubmit} noValidate autoComplete="off">
         <Typography variant="headline" gutterBottom>
@@ -79,20 +105,54 @@ class CustomerEdit extends Component {
         </Typography>
         <Field
           name="name"
+          component={FormTextField}
           label="Имя"
           placeholder="Иванов Иван Иванович"
           margin="normal"
-          component={FormTextField}
+        />
+        <Field
+          name="manager"
+          component={DownshiftAutocomplete}
+          allowNull
+          label="Ответственный"
+          placeholder="Иванов Иван Иванович"
+          margin="normal"
+          setFieldId={id => mutators.setFieldData('manager', { id })}
         />
         <Field
           name="email"
-          type="email"
+          component={FormTextField}
           label="Email"
           placeholder="abc@abc.ru"
-          autoComplete="new-password"
           margin="normal"
-          component={FormTextField}
+          type="email"
+          autoComplete="new-password"
         />
+        <FieldArray name="emails">
+          {({ fields }) => (
+            <Fragment>
+              {fields.map((name, index) => (
+                <Field
+                  key={name}
+                  name={name}
+                  type="email"
+                  label="Email"
+                  placeholder="abc@abc.ru"
+                  autoComplete="new-password"
+                  margin="normal"
+                  component={FormTextField}
+                />
+              ))}
+              <Button
+                variant="raised"
+                color="secondary"
+                onClick={() => fields.push('')}
+              >
+                Добавить Email
+              </Button>
+            </Fragment>
+          )}
+        </FieldArray>
         <Field
           name="phone"
           type="phone"
@@ -101,6 +161,30 @@ class CustomerEdit extends Component {
           margin="normal"
           component={FormTextField}
         />
+        <FieldArray name="phones">
+          {({ fields }) => (
+            <Fragment>
+              {fields.map((name, index) => (
+                <Field
+                  key={name}
+                  name={name}
+                  type="phone"
+                  label="Телефон"
+                  placeholder="+792587454555"
+                  margin="normal"
+                  component={FormTextField}
+                />
+              ))}
+              <Button
+                variant="raised"
+                color="secondary"
+                onClick={() => fields.push('')}
+              >
+                Добавить телефон
+              </Button>
+            </Fragment>
+          )}
+        </FieldArray>
         <Typography variant="headline" gutterBottom>
           {submitError}
         </Typography>
@@ -119,7 +203,19 @@ class CustomerEdit extends Component {
   renderFinalForm = createCustomer => (
     <FinalForm
       onSubmit={makeSubmitHandler(createCustomer)}
-      initialValues={{ name: '', email: '', phone: '' }}
+      initialValues={{
+        name: '',
+        manager: null,
+        email: '',
+        phone: '',
+        emails: [],
+        phones: [],
+      }}
+      decorators={[focusOnErrors]}
+      mutators={{
+        ...arrayMutators,
+        setFieldData,
+      }}
       validate={validate}
     >
       {this.renderForm}

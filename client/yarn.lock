@@ -2310,6 +2310,10 @@ detect-port-alt@1.1.6:
     address "^1.0.1"
     debug "^2.6.0"
 
+diacritic@0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/diacritic/-/diacritic-0.0.2.tgz#fc2a887b5a5bc0a0a854fb614c7c2f209061ee04"
+
 diff@^3.2.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/diff/-/diff-3.5.0.tgz#800c0dd1e0a8bfbc95835c202ad220fe317e5a12"
@@ -2429,6 +2433,10 @@ dotenv-expand@4.2.0:
 dotenv@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-4.0.0.tgz#864ef1379aced55ce6f95debecdce179f7a0cd1d"
+
+downshift@^1.31.15:
+  version "1.31.15"
+  resolved "https://registry.yarnpkg.com/downshift/-/downshift-1.31.15.tgz#ac31c601e2e9e34c5bb85b969c11ba87248f5e67"
 
 duplexer3@^0.1.4:
   version "0.1.4"
@@ -3216,6 +3224,18 @@ fill-range@^4.0.0:
     is-number "^3.0.0"
     repeat-string "^1.6.1"
     to-regex-range "^2.1.0"
+
+final-form-arrays@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/final-form-arrays/-/final-form-arrays-1.0.4.tgz#74330cb4d64ce07bb1c4a9084d0b65afdac6bf72"
+
+final-form-focus@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/final-form-focus/-/final-form-focus-1.0.0.tgz#51b7652ea6aac9774234a2c871e9f9a434b2b983"
+
+final-form-set-field-data@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/final-form-set-field-data/-/final-form-set-field-data-1.0.1.tgz#edb1794812731831bfef6976746fcc82d75dcdec"
 
 final-form@^4.6.2:
   version "4.6.2"
@@ -5268,6 +5288,12 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
+match-sorter@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/match-sorter/-/match-sorter-2.2.3.tgz#5fc142821fed543f352fb7edce2603970919d225"
+  dependencies:
+    diacritic "0.0.2"
+
 math-expression-evaluator@^1.2.14:
   version "1.2.17"
   resolved "https://registry.yarnpkg.com/math-expression-evaluator/-/math-expression-evaluator-1.2.17.tgz#de819fdbcd84dccd8fae59c6aeb79615b9d266ac"
@@ -6641,6 +6667,10 @@ react-event-listener@^0.5.9:
     fbjs "^0.8.16"
     prop-types "^15.6.0"
     warning "^3.0.0"
+
+react-final-form-arrays@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-final-form-arrays/-/react-final-form-arrays-1.0.4.tgz#888b9b81a806844cf66d73f4e8b60e5f18fa2a11"
 
 react-final-form@^3.4.2:
   version "3.4.2"
