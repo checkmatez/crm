@@ -1,6 +1,19 @@
-input CreateCustomerInput {
-  name: String
+input CompanyAddInput {
+  name: String!
+  legalName: String
+  note: String
   managerId: ID
-  emails: [String!]!
-  phones: [String!]!
+  emails: [String!]
+  phones: [String!]
+}
+
+input ContactAddInput {
+  firstName: String!
+  lastName: String
+  middleName: String
+  note: String
+  managerId: ID
+  companyId: ID
+  emails: [String!]
+  phones: [String!]
 }

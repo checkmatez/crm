@@ -5,14 +5,14 @@ import Typography from '@material-ui/core/Typography'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import styled from 'styled-components'
 
-import { CUSTOMER_QUERY } from '../../queries/customer'
+import { COMPANY_QUERY } from '../../queries/company'
 
 const Root = styled.div`
   flex: 1;
   flex-direction: row;
 `
 
-class CustomerDetails extends Component {
+class CompanyDetails extends Component {
   static propTypes = {
     match: PropTypes.shape({
       params: PropTypes.shape({ id: PropTypes.string.isRequired }).isRequired,
@@ -25,14 +25,14 @@ class CustomerDetails extends Component {
     if (loading) {
       return <CircularProgress />
     }
-    const { customer } = data
-    const emailRow = customer.contactDetails.find(cd => cd.kind === 'EMAIL')
+    const { company } = data
+    const emailRow = company.contactDetails.find(cd => cd.kind === 'EMAIL')
     return (
       <Root>
-        <Typography>This is CustomerDetails component</Typography>
-        <Typography>{`Наименование: ${customer.name}`}</Typography>
+        <Typography>This is CompanyDetails component</Typography>
+        <Typography>{`Наименование: ${company.name}`}</Typography>
         <Typography>{`Ответственный: ${
-          customer.manager ? customer.manager.name : '<Не указан>'
+          company.manager ? company.manager.name : '<Не указан>'
         }`}</Typography>
         <Typography>{`Email: ${
           emailRow ? emailRow.value : '<Не указан>'
@@ -44,7 +44,7 @@ class CustomerDetails extends Component {
   render() {
     return (
       <Query
-        query={CUSTOMER_QUERY}
+        query={COMPANY_QUERY}
         variables={{ id: this.props.match.params.id }}
         fetchPolicy="cache-and-network"
       >
@@ -54,4 +54,4 @@ class CustomerDetails extends Component {
   }
 }
 
-export default CustomerDetails
+export default CompanyDetails

@@ -2,12 +2,13 @@ import gql from 'graphql-tag'
 
 import { contactDetailInfoFragment } from '../fragments/contactDetailInfo'
 
-export const customerInfoFragment = gql`
-  fragment CustomerInfo on Customer {
+export const companyInfoFragment = gql`
+  fragment CompanyInfo on Company {
     id
-    name
     createdAt
     updatedAt
+    name
+    note
     manager {
       id
       name

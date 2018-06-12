@@ -2,70 +2,59 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Query } from 'react-apollo'
 import { Link } from 'react-router-dom'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Paper from '@material-ui/core/Paper'
+import Typography from '@material-ui/core/Typography'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
+import TableSortLabel from '@material-ui/core/TableSortLabel'
 import TableRow from '@material-ui/core/TableRow'
-import Paper from '@material-ui/core/Paper'
-import Checkbox from '@material-ui/core/Checkbox'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import Typography from '@material-ui/core/Typography'
 import styled from 'styled-components'
-import format from 'date-fns/format'
-import Button from '@material-ui/core/Button'
+import dateFormat from 'date-fns/format'
 
-import TableHeaderToolbar from './TableHeaderToolbar'
-import EnhancedTableHead from './EnhancedTableHead'
-import { CUSTOMERS_QUERY } from '../../queries/customers'
-
-const TableWrapper = styled.div`
-  overflow-x: auto;
-`
+import { CONTACTS_QUERY } from '../../queries/contacts'
 
 const StyledTable = styled(Table)`
   min-width: 1020;
 `
 
+const columnData = [
+  {
+    id: 'lastName',
+    numeric: false,
+    disablePadding: false,
+    label: 'Фамилия, имя',
+  },
+  {
+    id: 'createdAt',
+    numeric: false,
+    disablePadding: false,
+    label: 'Дата создания',
+  },
+  {
+    id: 'updatedAt',
+    numeric: false,
+    disablePadding: false,
+    label: 'Дата изменения',
+  },
+  {
+    id: 'managerName',
+    numeric: false,
+    disablePadding: false,
+    label: 'Менеджер',
+  },
+  { id: 'email', numeric: false, disablePadding: false, label: 'Email' },
+]
+
 class ContactList extends Component {
-  static propTypes = {}
-
   state = {
-    order: 'DESC',
-    orderBy: 'name',
-    selected: [],
+    order: 'ASC',
+    orderBy: 'lastName',
   }
 
-  handleSelectAllClick = (data, event, checked) => {
-    if (checked) {
-      this.setState({ selected: data.map(n => n.id) })
-      return
-    }
-    // this.setState({ selected: [] })
-  }
-
-  handleClick = (event, id) => {
-    const { selected } = this.state
-    const selectedIndex = selected.indexOf(id)
-    let newSelected = []
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id)
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1))
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1))
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      )
-    }
-
-    this.setState({ selected: newSelected })
-  }
-
-  handleRequestSort = (columnId, event) => {
+  makeSortHandler = columnId => () => {
     this.setState(prevState => {
       if (prevState.orderBy === columnId) {
         return {
@@ -76,41 +65,56 @@ class ContactList extends Component {
     })
   }
 
-  isSelected = id => this.state.selected.indexOf(id) !== -1
+  renderTableHead = () => {
+    const { order, orderBy } = this.state
+    return (
+      <TableHead>
+        <TableRow>
+          {columnData.map(column => (
+            <TableCell
+              key={column.id}
+              numeric={column.numeric}
+              padding={column.disablePadding ? 'none' : 'default'}
+              sortDirection={
+                orderBy === column.id ? order.toLowerCase() : false
+              }
+            >
+              <TableSortLabel
+                active={orderBy === column.id}
+                direction={order.toLowerCase()}
+                onClick={this.makeSortHandler(column.id)}
+              >
+                {column.label}
+              </TableSortLabel>
+            </TableCell>
+          ))}
+        </TableRow>
+      </TableHead>
+    )
+  }
 
-  renderTableBody = customers => (
+  renderTableBody = contacts => (
     <TableBody>
-      {customers.edges.map(({ node: customer }) => {
-        const isSelected = this.isSelected(customer.id)
-        const emailRow = customer.contactDetails.find(cd => cd.kind === 'EMAIL')
+      {contacts.edges.map(({ node: contact }) => {
+        const emailRow = contact.contactDetails.find(cd => cd.kind === 'EMAIL')
         return (
-          <TableRow
-            key={customer.id}
-            hover
-            role="checkbox"
-            aria-checked={isSelected}
-            selected={isSelected}
-            tabIndex={-1}
-            onClick={event => this.handleClick(event, customer.id)}
-          >
+          <TableRow key={contact.id} tabIndex={-1}>
             <TableCell component="th" scope="row">
               <Typography
                 component={Link}
                 variant="body1"
-                to={`${this.props.match.url}/${customer.id}`}
+                to={`${this.props.match.url}/${contact.id}`}
               >
-                {customer.name}
+                {`${contact.lastName} ${contact.firstName}`}
               </Typography>
             </TableCell>
             <TableCell>
-              {format(customer.createdAt, 'DD.MM.YYYY HH:mm')}
+              {dateFormat(contact.createdAt, 'DD.MM.YYYY HH:mm')}
             </TableCell>
             <TableCell>
-              {format(customer.updatedAt, 'DD.MM.YYYY HH:mm')}
+              {dateFormat(contact.updatedAt, 'DD.MM.YYYY HH:mm')}
             </TableCell>
-            <TableCell>
-              {customer.manager ? customer.manager.name : ''}
-            </TableCell>
+            <TableCell>{contact.manager ? contact.manager.name : ''}</TableCell>
             <TableCell>{emailRow ? emailRow.value : ''}</TableCell>
           </TableRow>
         )
@@ -118,30 +122,16 @@ class ContactList extends Component {
     </TableBody>
   )
 
-  renderWithData = ({ data, loading, error }) => {
-    const { order, orderBy, selected } = this.state
+  renderQueryResult = ({ data, loading, error }) => {
     return (
       <Paper>
-        <TableHeaderToolbar
-          url={this.props.match.url}
-          numSelected={selected.length}
-        />
-        <TableWrapper>
+        <React.Fragment>
           <StyledTable>
-            <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={(...args) =>
-                this.handleSelectAllClick(data, ...args)
-              }
-              onRequestSort={this.handleRequestSort}
-              rowCount={loading ? 0 : data.customers.edges.length}
-            />
-            {!loading && this.renderTableBody(data.customers)}
+            {this.renderTableHead()}
+            {data && data.contacts && this.renderTableBody(data.contacts)}
           </StyledTable>
           {loading && <CircularProgress />}
-        </TableWrapper>
+        </React.Fragment>
       </Paper>
     )
   }
@@ -149,7 +139,7 @@ class ContactList extends Component {
   render() {
     return (
       <Query
-        query={CUSTOMERS_QUERY}
+        query={CONTACTS_QUERY}
         variables={{
           first: 10,
           skip: 0,
@@ -157,7 +147,7 @@ class ContactList extends Component {
         }}
         fetchPolicy="cache-and-network"
       >
-        {this.renderWithData}
+        {this.renderQueryResult}
       </Query>
     )
   }

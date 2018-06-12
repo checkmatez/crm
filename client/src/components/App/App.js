@@ -4,7 +4,7 @@ import { ApolloProvider } from 'react-apollo'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { withTheme } from '@material-ui/core/styles'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import styled, { ThemeProvider } from 'styled-components'
 
 import configureApollo from '../../config/configureApollo'
@@ -27,9 +27,21 @@ const Center = styled.div`
   align-items: center;
 `
 
+const lightTheme = createMuiTheme({
+  palette: {
+    type: 'light',
+  },
+})
+const darkTheme = createMuiTheme({
+  palette: {
+    type: 'dark',
+  },
+})
+
 class App extends Component {
   state = {
     apolloClient: null,
+    currentTheme: 'light',
   }
 
   async componentDidMount() {
@@ -37,50 +49,69 @@ class App extends Component {
     this.setState({ apolloClient: client })
   }
 
+  handleThemeChange = () =>
+    this.setState(prevState => ({
+      currentTheme: prevState.currentTheme === 'light' ? 'dark' : 'light',
+    }))
+
   render() {
-    if (!this.state.apolloClient) {
+    const { apolloClient, currentTheme } = this.state
+    if (!apolloClient) {
       return <CircularProgress />
     }
     return (
-      <ApolloProvider client={this.state.apolloClient}>
+      <ApolloProvider client={apolloClient}>
         <BrowserRouter>
-          <ThemeProvider theme={this.props.theme}>
-            <Center>
-              <CssBaseline />
-              <Switch>
-                <Route
-                  exact
-                  path="/"
-                  render={() => (
-                    <Redirect
-                      to={
-                        localStorage.getItem(ACCESS_TOKEN_KEY)
-                          ? '/dashboard'
-                          : '/registration'
-                      }
-                    />
-                  )}
-                />
-                <Route
-                  path={['/registration', '/login']}
-                  render={({ match, ...rest }) => (
-                    <Center>
-                      <SignupForm
-                        match={match.url === '/registration'}
-                        {...rest}
+          <MuiThemeProvider
+            theme={currentTheme === 'light' ? lightTheme : darkTheme}
+          >
+            <ThemeProvider
+              theme={currentTheme === 'light' ? lightTheme : darkTheme}
+            >
+              <Center>
+                <CssBaseline />
+                <Switch>
+                  <Route
+                    exact
+                    path="/"
+                    render={() => (
+                      <Redirect
+                        to={
+                          localStorage.getItem(ACCESS_TOKEN_KEY)
+                            ? '/dashboard'
+                            : '/registration'
+                        }
                       />
-                      <LoginForm match={match.url === '/login'} {...rest} />
-                    </Center>
-                  )}
-                />
-                <Route component={MainPage} />
-              </Switch>
-            </Center>
-          </ThemeProvider>
+                    )}
+                  />
+                  <Route
+                    path={['/registration', '/login']}
+                    render={({ match, ...rest }) => (
+                      <Center>
+                        <SignupForm
+                          match={match.url === '/registration'}
+                          {...rest}
+                        />
+                        <LoginForm match={match.url === '/login'} {...rest} />
+                      </Center>
+                    )}
+                  />
+                  <Route
+                    render={routeProps => (
+                      <MainPage
+                        {...routeProps}
+                        onThemeChange={this.handleThemeChange}
+                      />
+                    )}
+                  />
+                </Switch>
+              </Center>
+            </ThemeProvider>
+          </MuiThemeProvider>
         </BrowserRouter>
       </ApolloProvider>
     )
   }
 }
 
-export default withTheme()(App)
+export default App

@@ -1,12 +1,15 @@
-import { customer } from './customer'
-import { customers } from './customers'
+import { company } from './company'
+import { companies } from './companies'
+import { contact, contacts } from './contact'
 import { me } from './me'
 import { searchUser } from './searchUser'
 
 // tslint:disable-next-line variable-name
 export const Query = {
   me,
-  customer,
-  customers,
+  company,
+  companies,
   searchUser,
+  contact,
+  contacts,
 }

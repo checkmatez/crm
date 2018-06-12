@@ -1,4 +1,5 @@
 type User {
+  # common Prisma fields
   id: ID! @unique
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -8,7 +9,71 @@ type User {
   name: String! @default(value: "")
 }
 
+type Company {
+  # common Prisma fields
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  # --------------------
+  name: String!
+  note: String! @default(value: "")
+  legalName: String! @default(value: "")
+  manager: User
+  contactDetails: [ContactDetail!]!
+    @relation(name: "CompanyContactDetails", onDelete: CASCADE)
+  contactsHistory: [ContactHistoryInCompany!]!
+}
+
+type Contact {
+  # common Prisma fields
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  # --------------------
+  firstName: String!
+  lastName: String! @default(value: "")
+  middleName: String! @default(value: "")
+  note: String! @default(value: "")
+  manager: User
+  contactDetails: [ContactDetail!]!
+    @relation(name: "ContactContactDetails", onDelete: CASCADE)
+  workingHistory: [ContactHistoryInCompany!]!
+}
+
+type ContactHistoryInCompany {
+  # common Prisma fields
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  # --------------------
+  company: Company!
+  contact: Contact!
+  position: String! @default(value: "")
+  from: DateTime!
+}
+
+type ContactDetail {
+  # common Prisma fields
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  # --------------------
+  kind: ContactDetailsKind!
+  value: String!
+  rawValue: String!
+  ownerCompany: Company @relation(name: "CompanyContactDetails")
+  ownerContact: Contact @relation(name: "ContactContactDetails")
+  ownerLead: Lead @relation(name: "LeadContactDetails")
+}
+
+enum ContactDetailsKind {
+  EMAIL
+  PHONE
+  ADDRESS
+}
+
 type Lead {
+  # common Prisma fields
   id: ID! @unique
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -22,6 +87,7 @@ type Lead {
 }
 
 type LeadState {
+  # common Prisma fields
   id: ID! @unique
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -30,47 +96,27 @@ type LeadState {
   color: Color!
 }
 
-type ContactDetail {
-  id: ID! @unique
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  # --------------------
-  kind: ContactDetailsKind!
-  value: String!
-  rawValue: String!
-  owner: Lead @relation(name: "LeadContactDetails")
-}
-
 type Color {
+  # common Prisma fields
   id: ID! @unique
   # --------------------
   name: String! @default(value: "")
   hexValue: String!
 }
 
-type Customer {
-  id: ID! @unique
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  # --------------------
-  name: String!
-  manager: User
-  note: String!
-  contactDetails: [ContactDetail!]!
-    @relation(name: "CustomerContactDetails", onDelete: CASCADE)
-}
-
 type Order {
+  # common Prisma fields
   id: ID! @unique
   createdAt: DateTime!
   updatedAt: DateTime!
   # --------------------
-  customer: Customer!
+  customer: Company!
   manager: User
   positions: [OrderPositions!]!
 }
 
 type OrderPositions {
+  # common Prisma fields
   id: ID! @unique
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -83,6 +129,7 @@ type OrderPositions {
 }
 
 type Currency {
+  # common Prisma fields
   id: ID! @unique
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -92,6 +139,7 @@ type Currency {
 }
 
 type Nomenclature {
+  # common Prisma fields
   id: ID! @unique
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -99,12 +147,6 @@ type Nomenclature {
   type: NomenclatureType! @default(value: "GOODS")
   name: String!
   description: String!
-}
-
-enum ContactDetailsKind {
-  EMAIL
-  PHONE
-  ADDRESS
 }
 
 enum NomenclatureType {

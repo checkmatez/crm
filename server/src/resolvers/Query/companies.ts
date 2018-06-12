@@ -1,8 +1,8 @@
 import { IContext } from '../../utils'
 
-export const customers = (
+export const companies = (
   parent,
   { first, skip, orderBy },
   { db }: IContext,
   info
-) => db.query.customersConnection({ first, skip, orderBy }, info)
+) => db.query.companiesConnection({ first, skip, orderBy }, info)

@@ -15,8 +15,8 @@ import setFieldData from 'final-form-set-field-data'
 import createDecorator from 'final-form-focus'
 import posed from 'react-pose'
 
-import { CREATE_CUSTOMER_MUTATION } from '../../mutations/createCustomer'
-import { CUSTOMERS_QUERY } from '../../queries/customers'
+import { ADD_COMPANY_MUTATION } from '../../mutations/addCompany'
+import { COMPANIES_QUERY } from '../../queries/companies'
 import { makeFormSubmitHandler } from '../../utils'
 import FormTextField from '../FormTextField'
 import DownshiftAutocomplete from '../DownshiftAutocomplete'
@@ -77,23 +77,23 @@ const makeSubmitHandler = mutation => async (
   return undefined
 }
 
-class CustomerEdit extends Component {
+class CompanyEdit extends Component {
   static propTypes = {}
 
   static defaultProps = {}
 
-  handleCustomerCreateCompleted = () => {
-    this.props.history.push('/customers')
+  handleCompanyCreateCompleted = () => {
+    this.props.history.push('/companies')
   }
 
-  updateCache = (cache, { data: { createCustomer } }) => {
-    const { customers } = cache.readQuery({ query: CUSTOMERS_QUERY })
+  updateCache = (cache, { data: { createCompany } }) => {
+    const { companies } = cache.readQuery({ query: COMPANIES_QUERY })
     cache.writeQuery({
-      query: CUSTOMERS_QUERY,
+      query: COMPANIES_QUERY,
       data: {
-        customers: {
-          ...customers,
-          edges: [...customers.edges, { cursor: '', node: createCustomer }],
+        companies: {
+          ...companies,
+          edges: [...companies.edges, { cursor: '', node: createCompany }],
         },
       },
     })
@@ -205,9 +205,9 @@ class CustomerEdit extends Component {
     </PaperStyled>
   )
 
-  renderFinalForm = createCustomer => (
+  renderFinalForm = createCompany => (
     <FinalForm
-      onSubmit={makeSubmitHandler(createCustomer)}
+      onSubmit={makeSubmitHandler(createCompany)}
       initialValues={{
         name: '',
         manager: null,
@@ -228,9 +228,9 @@ class CustomerEdit extends Component {
   render() {
     return (
       <Mutation
-        mutation={CREATE_CUSTOMER_MUTATION}
+        mutation={ADD_COMPANY_MUTATION}
         update={this.updateCache}
-        onCompleted={this.handleCustomerCreateCompleted}
+        onCompleted={this.handleCompanyCreateCompleted}
       >
         {this.renderFinalForm}
       </Mutation>
@@ -238,4 +238,4 @@ class CustomerEdit extends Component {
   }
 }
 
-export default CustomerEdit
+export default CompanyEdit

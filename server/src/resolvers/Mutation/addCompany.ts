@@ -5,9 +5,9 @@ import { IContext } from '../../utils'
 
 const debugApi = debug('api')
 
-export const createCustomer = async (
+export const addCompany = async (
   parent,
-  { data: { name, managerId, emails, phones } },
+  { data: { name, legalName, note, managerId, emails, phones } },
   { db }: IContext,
   info
 ) => {
@@ -26,10 +26,12 @@ export const createCustomer = async (
     }
   })
 
-  const customer = await db.mutation.createCustomer(
+  const company = await db.mutation.createCompany(
     {
       data: {
         name,
+        legalName,
+        note,
         manager: managerId && { connect: { id: managerId } },
         contactDetails: {
           create: [...emailContactDetails, ...phoneContactDetails],
@@ -39,5 +41,5 @@ export const createCustomer = async (
     info
   )
 
-  return customer
+  return company
 }

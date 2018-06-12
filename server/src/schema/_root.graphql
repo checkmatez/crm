@@ -1,5 +1,4 @@
-# import CustomerOrderByInput from "../generated/prisma.graphql"
-# import CustomerConnection from "../generated/prisma.graphql"
+# import {CompanyOrderByInput, CompanyConnection, ContactOrderByInput, ContactConnection} from "../generated/prisma.graphql"
 
 # import * from "enums.graphql"
 # import * from "inputs.graphql"
@@ -9,13 +8,21 @@
 type Query {
   me: User
 
-  customer(id: ID!): Customer
+  company(id: ID!): Company
 
-  customers(
+  companies(
     first: Int!
     skip: Int!
-    orderBy: CustomerOrderByInput
-  ): CustomerConnection!
+    orderBy: CompanyOrderByInput
+  ): CompanyConnection!
+
+  contact(id: ID!): Contact
+
+  contacts(
+    first: Int!
+    skip: Int!
+    orderBy: ContactOrderByInput
+  ): ContactConnection!
 
   searchUser(search: String!): [User!]!
 
@@ -27,5 +34,7 @@ type Mutation {
 
   login(email: String!, password: String!): AuthPayload!
 
-  createCustomer(data: CreateCustomerInput!): Customer!
+  addCompany(data: CompanyAddInput!): Company!
+
+  addContact(data: ContactAddInput!): Contact!
 }

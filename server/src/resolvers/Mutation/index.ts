@@ -1,10 +1,12 @@
 import { login } from './login'
 import { signup } from './signup'
-import { createCustomer } from './createCustomer'
+import { addCompany } from './addCompany'
+import { addContact } from './addContact'
 
 // tslint:disable-next-line variable-name
 export const Mutation = {
   login,
   signup,
-  createCustomer,
+  addCompany,
+  addContact,
 }

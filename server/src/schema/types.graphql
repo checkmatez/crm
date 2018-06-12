@@ -4,15 +4,44 @@ type User {
   name: String!
 }
 
-type Customer {
+type Company {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
   # --------------------
   name: String!
-  manager: User
+  legalName: String!
   note: String!
+  manager: User
   contactDetails: [ContactDetail!]!
+  contactsHistory: [ContactHistoryInCompany!]!
+}
+
+type Contact {
+  # common fields
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  # --------------------
+  firstName: String!
+  lastName: String!
+  middleName: String!
+  note: String!
+  manager: User
+  contactDetails: [ContactDetail!]!
+  workingHistory: [ContactHistoryInCompany!]!
+}
+
+type ContactHistoryInCompany {
+  # common fields
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  # --------------------
+  company: Company!
+  contact: Contact!
+  position: String!
+  from: DateTime!
 }
 
 type ContactDetail {
