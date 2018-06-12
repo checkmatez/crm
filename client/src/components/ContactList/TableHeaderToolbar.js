@@ -82,7 +82,7 @@ class TableHeaderToolbar extends Component {
               </Tooltip>
               <Button
                 component={Link}
-                to="/customer/new"
+                to={`${this.props.url}/add`}
                 variant="fab"
                 color="primary"
                 aria-label="add"

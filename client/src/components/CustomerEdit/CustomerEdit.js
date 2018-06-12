@@ -147,7 +147,7 @@ class CustomerEdit extends Component {
                 if (index === fields.length - 1) {
                   return (
                     <ContactFieldContainer>
-                      <IconButton onClick={() => fields.push('')}>
+                      <IconButton tabIndex={-1} onClick={() => fields.push('')}>
                         <AddCircleOutline />
                       </IconButton>
                       {field}
@@ -178,7 +178,7 @@ class CustomerEdit extends Component {
                 if (index === fields.length - 1) {
                   return (
                     <ContactFieldContainer>
-                      <IconButton onClick={() => fields.push('')}>
+                      <IconButton tabIndex={-1} onClick={() => fields.push('')}>
                         <AddCircleOutline />
                       </IconButton>
                       {field}

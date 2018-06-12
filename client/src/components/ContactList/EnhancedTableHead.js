@@ -12,7 +12,7 @@ const columnData = [
   {
     id: 'name',
     numeric: false,
-    disablePadding: true,
+    disablePadding: false,
     label: 'Наименование',
   },
   {
@@ -62,13 +62,6 @@ class EnhancedTableHead extends Component {
     return (
       <TableHead>
         <TableRow>
-          <TableCell padding="dense">
-            <Checkbox
-              indeterminate={numSelected > 0 && numSelected < rowCount}
-              checked={numSelected === rowCount}
-              onChange={onSelectAllClick}
-            />
-          </TableCell>
           {columnData.map(column => (
             <TableCell
               key={column.id}

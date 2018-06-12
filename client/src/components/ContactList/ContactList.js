@@ -78,49 +78,54 @@ class ContactList extends Component {
 
   isSelected = id => this.state.selected.indexOf(id) !== -1
 
-  renderTableBody = customers =>
-    customers.edges.map(({ node: customer }) => {
-      const isSelected = this.isSelected(customer.id)
-      const emailRow = customer.contactDetails.find(cd => cd.kind === 'EMAIL')
-      return (
-        <TableRow
-          key={customer.id}
-          hover
-          role="checkbox"
-          aria-checked={isSelected}
-          selected={isSelected}
-          tabIndex={-1}
-          onClick={event => this.handleClick(event, customer.id)}
-        >
-          <TableCell padding="dense">
-            <Checkbox checked={isSelected} />
-          </TableCell>
-          <TableCell component="th" scope="row" padding="none">
-            <Typography
-              component={Link}
-              variant="body1"
-              to={`/customer/${customer.id}`}
-            >
-              {customer.name}
-            </Typography>
-          </TableCell>
-          <TableCell>
-            {format(customer.createdAt, 'DD.MM.YYYY HH:mm')}
-          </TableCell>
-          <TableCell>
-            {format(customer.updatedAt, 'DD.MM.YYYY HH:mm')}
-          </TableCell>
-          <TableCell>{customer.manager ? customer.manager.name : ''}</TableCell>
-          <TableCell>{emailRow ? emailRow.value : ''}</TableCell>
-        </TableRow>
-      )
-    })
+  renderTableBody = customers => (
+    <TableBody>
+      {customers.edges.map(({ node: customer }) => {
+        const isSelected = this.isSelected(customer.id)
+        const emailRow = customer.contactDetails.find(cd => cd.kind === 'EMAIL')
+        return (
+          <TableRow
+            key={customer.id}
+            hover
+            role="checkbox"
+            aria-checked={isSelected}
+            selected={isSelected}
+            tabIndex={-1}
+            onClick={event => this.handleClick(event, customer.id)}
+          >
+            <TableCell component="th" scope="row">
+              <Typography
+                component={Link}
+                variant="body1"
+                to={`${this.props.match.url}/${customer.id}`}
+              >
+                {customer.name}
+              </Typography>
+            </TableCell>
+            <TableCell>
+              {format(customer.createdAt, 'DD.MM.YYYY HH:mm')}
+            </TableCell>
+            <TableCell>
+              {format(customer.updatedAt, 'DD.MM.YYYY HH:mm')}
+            </TableCell>
+            <TableCell>
+              {customer.manager ? customer.manager.name : ''}
+            </TableCell>
+            <TableCell>{emailRow ? emailRow.value : ''}</TableCell>
+          </TableRow>
+        )
+      })}
+    </TableBody>
+  )
 
   renderWithData = ({ data, loading, error }) => {
     const { order, orderBy, selected } = this.state
     return (
       <Paper>
-        <TableHeaderToolbar numSelected={selected.length} />
+        <TableHeaderToolbar
+          url={this.props.match.url}
+          numSelected={selected.length}
+        />
         <TableWrapper>
           <StyledTable>
             <EnhancedTableHead
@@ -133,11 +138,9 @@ class ContactList extends Component {
               onRequestSort={this.handleRequestSort}
               rowCount={loading ? 0 : data.customers.edges.length}
             />
-            <TableBody>
-              {loading && <CircularProgress />}
-              {!loading && this.renderTableBody(data.customers)}
-            </TableBody>
+            {!loading && this.renderTableBody(data.customers)}
           </StyledTable>
+          {loading && <CircularProgress />}
         </TableWrapper>
       </Paper>
     )
