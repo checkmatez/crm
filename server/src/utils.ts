@@ -1,9 +1,11 @@
 import * as jwt from 'jsonwebtoken'
+import { Client } from 'elasticsearch'
 
 import { Prisma } from './generated/prisma'
 
 export interface IContext {
   db: Prisma
+  es: Client
   request: any
 }
 

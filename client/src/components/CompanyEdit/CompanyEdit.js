@@ -133,7 +133,7 @@ class CompanyEdit extends Component {
               {fields.map((name, index) => {
                 const field = (
                   <Field
-                    key={name}
+                    key={`${name}-${index}`}
                     name={name}
                     type="email"
                     label="Email"
@@ -165,7 +165,7 @@ class CompanyEdit extends Component {
               {fields.map((name, index) => {
                 const field = (
                   <Field
-                    key={name}
+                    key={`${name}-${index}`}
                     name={name}
                     type="phone"
                     label="Телефон"

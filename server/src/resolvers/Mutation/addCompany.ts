@@ -8,7 +8,7 @@ const debugApi = debug('api')
 export const addCompany = async (
   parent,
   { data: { name, legalName, note, managerId, emails, phones } },
-  { db }: IContext,
+  { db, es }: IContext,
   info
 ) => {
   const emailContactDetails = emails.map(value => ({
@@ -40,6 +40,12 @@ export const addCompany = async (
     },
     info
   )
+  const c = await es.create({
+    index: 'companies',
+    type: '_doc',
+    id: company.id,
+    body: company,
+  })
 
   return company
 }
